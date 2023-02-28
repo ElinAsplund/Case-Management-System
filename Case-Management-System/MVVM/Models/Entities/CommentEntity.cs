@@ -13,15 +13,17 @@ internal class CommentEntity
     public string Comment { get; set; } = null!;
 
     [Column(TypeName = "datetime")]
-    public DateTime EntryTime { get; set; }
-
-    [Column(TypeName = "nvarchar(10)")]
-    public string NameInitial { get; set; } = null!;
+    public DateTime EntryTime { get; set; } = DateTime.Now;
 
 
     [Required]
     public int CaseId { get; set; }
 
     public CaseEntity Case { get; set; } = null!;
+
+    [Required]
+    public int EmployeeId { get; set; }
+
+    public EmployeeEntity Employee { get; set; } = null!;
 
 }

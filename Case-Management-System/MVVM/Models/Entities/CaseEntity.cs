@@ -16,11 +16,10 @@ internal class CaseEntity
     public string Description { get; set; } = null!;
 
     [Column(TypeName = "datetime")]
-    public DateTime EntryTime { get; set; }
+    public DateTime EntryTime { get; set; } = DateTime.Now;
 
-    //[Column (TypeName = "enum")] ?????????????
     [EnumDataType(typeof(CaseStatus))]
-    [Column(TypeName = "nvarchar(max)")]
+    [Column(TypeName = "nvarchar(20)")]
     public CaseStatus Status { get; set; } = CaseStatus.NotStarted;
 
 

@@ -42,7 +42,7 @@ namespace Case_Management_System.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -66,16 +66,17 @@ namespace Case_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EntryTime")
                         .HasColumnType("datetime");
-
-                    b.Property<string>("NameInitial")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CaseId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Comments");
                 });
@@ -112,6 +113,36 @@ namespace Case_Management_System.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Case_Management_System.MVVM.Models.Entities.EmployeeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1000L);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NameInitials")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NameInitials")
+                        .IsUnique();
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Case_Management_System.MVVM.Models.Entities.CaseEntity", b =>
                 {
                     b.HasOne("Case_Management_System.MVVM.Models.Entities.CustomerEntity", "Customer")
@@ -131,7 +162,15 @@ namespace Case_Management_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Case_Management_System.MVVM.Models.Entities.EmployeeEntity", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Case");
+
+                    b.Navigation("Employee");
                 });
 #pragma warning restore 612, 618
         }
