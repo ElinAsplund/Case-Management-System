@@ -2,8 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace Case_Management_System.MVVM.Models.Entities;
 
@@ -29,6 +29,32 @@ internal class CaseEntity
     public CustomerEntity Customer { get; set; } = null!;
 
     public ICollection<CommentEntity> Comments = new HashSet<CommentEntity>();
+
+
+    #region implicit operators
+
+    public static implicit operator CaseEntity(Case task)
+    {
+        return new CaseEntity
+        {
+            Description = task.Description,
+            EntryTime = task.EntryTime,
+            Status = task.Status
+        };
+    }
+
+    public static implicit operator Case(CaseEntity caseEntity)
+    {
+        return new Case
+        {
+            Id = caseEntity.Id,
+            Description = caseEntity.Description,
+            EntryTime = caseEntity.EntryTime,
+            Status = caseEntity.Status
+        };
+    }
+
+    #endregion
 }
 
 public enum CaseStatus

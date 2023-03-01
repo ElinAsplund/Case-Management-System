@@ -25,4 +25,30 @@ internal class EmployeeEntity
 
 
     public ICollection<CommentEntity> Comments = new HashSet<CommentEntity>();
+
+
+    #region implicit operators
+
+    public static implicit operator EmployeeEntity(Employee employee)
+    {
+        return new EmployeeEntity
+        {
+            FirstName = employee.FirstName,
+            LastName = employee.LastName,
+            NameInitials = employee.NameInitials
+        };
+    }
+
+    public static implicit operator Employee(EmployeeEntity employeeEntity)
+    {
+        return new Employee
+        {
+            Id = employeeEntity.Id,
+            FirstName = employeeEntity.FirstName,
+            LastName = employeeEntity.LastName,
+            NameInitials = employeeEntity.NameInitials
+        };
+    }
+
+    #endregion
 }

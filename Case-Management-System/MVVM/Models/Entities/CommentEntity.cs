@@ -13,7 +13,7 @@ internal class CommentEntity
     public string Comment { get; set; } = null!;
 
     [Column(TypeName = "datetime")]
-    public DateTime EntryTime { get; set; } = DateTime.Now;
+    public DateTime EntryTime { get; set; }
 
 
     [Required]
@@ -26,4 +26,27 @@ internal class CommentEntity
 
     public EmployeeEntity Employee { get; set; } = null!;
 
+
+    #region implicit operators
+
+    public static implicit operator CommentEntity(Comment comment)
+    {
+        return new CommentEntity
+        {
+            Comment = comment.CommentString,
+            EntryTime = comment.EntryTime
+        };
+    }
+
+    public static implicit operator Comment(CommentEntity commentEntity)
+    {
+        return new Comment
+        {
+            Id = commentEntity.Id,
+            CommentString = commentEntity.Comment,
+            EntryTime = commentEntity.EntryTime
+        };
+    }
+
+    #endregion
 }
