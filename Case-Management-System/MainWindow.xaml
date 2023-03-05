@@ -3,14 +3,82 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Case_Management_System"
+        xmlns:local="clr-namespace:Case_Management_System" 
+        xmlns:viewmodels="clr-namespace:Case_Management_System.MVVM.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
     <Grid>
-        <TextBlock 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
-            TOMT! NADA! NOTHING!
-        </TextBlock>
+        <Grid Margin="0" 
+            Background="MistyRose">
+
+            <StackPanel Margin="30 0 30 0">
+                <TextBlock Text="{Binding Title}" 
+                    FontSize="16" 
+                    Margin="0 20 0 10" 
+                    FontWeight="DemiBold" 
+                    Foreground="#683b36"/>
+
+                <TextBlock Text="Förnamn*"/>
+                <TextBox Name="tb_FirstName" 
+                    Padding="3" 
+                    Margin="0 0 0 10" 
+                    Text="{Binding FirstName}" />
+
+                <TextBlock Text="Efternamn*"/>
+                <TextBox Name="tb_LastName" 
+                    Padding="3" 
+                    Margin="0 0 0 10" 
+                    Text="{Binding LastName}" />
+
+                <TextBlock Text="Email*"/>
+                <TextBox Name="tb_Email" 
+                    Padding="3" 
+                    Margin="0 0 0 10" 
+                    Text="{Binding Email}"/>
+
+                <TextBlock Text="Telefonnummer"/>
+                <TextBox Name="tb_PhoneNumber" 
+                    Padding="3" 
+                    Margin="0 0 0 10" 
+                    Text="{Binding PhoneNumber}" />
+                
+                <TextBlock Text="Beskrivning av ärende*"/>
+                <TextBox Name="tb_Description" 
+                    Padding="3" 
+                    Margin="0 0 0 10" 
+                    Height="100"
+                    TextWrapping="Wrap"
+                    AcceptsReturn="True"
+                    VerticalScrollBarVisibility="Visible"
+                    Text="{Binding Description}" />
+
+
+            </StackPanel>
+
+            <Button
+                Command="{Binding SaveCommand}"
+                Content="SPARA"
+                VerticalAlignment="Bottom"
+                Cursor="Hand"
+                Background="#78b869"
+                BorderThickness="0"
+                Padding="5"
+                Foreground="White"
+                FontWeight="DemiBold"
+                Margin="30 0 30 20" />
+
+            
+            <!--<ContentControl Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+
+                    --><!--<DataTemplate DataType="{x:Type viewmodels:ContactsViewModel}">
+                        <views:ContactsView />
+                    </DataTemplate>--><!--
+
+                </ContentControl.Resources>
+            </ContentControl>-->
+        </Grid>
     </Grid>
 </Window>

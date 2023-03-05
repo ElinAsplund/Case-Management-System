@@ -4,19 +4,16 @@ using Case_Management_System.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Case_Management_System.Migrations
 {
-    [DbContext(typeof(DataContext))]
-    [Migration("20230228192633_InitDatabase")]
-    partial class InitDatabase
+    [DbContext(typeof(DatabaseContext))]
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

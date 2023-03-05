@@ -1,10 +1,11 @@
 ﻿using Case_Management_System.MVVM.Models.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Case_Management_System.MVVM.Models;
 
-internal class Case
+public class Case
 {
     public int Id { get; set; }
 
@@ -12,10 +13,14 @@ internal class Case
 
     public DateTime EntryTime { get; set; } = DateTime.Now;
 
-    public CaseStatus Status { get; set; } = CaseStatus.NotStarted;
+    // SKA INTE VARA HÄR? UTAN I COMMENT?
+    //public CaseStatus Status { get; set; } = CaseStatus.NotStarted;
 
-    //ÄR DETTA MÖJLIGT? ÄR DET GOD SED? Sätts mha en service???
     public string CustomerFirstName { get; set; } = null!;
 
     public string CustomerLastName { get; set; } = null!;
+
+    public string CustomerEmail { get; set; } = null!;
+
+    public string? CustomerPhoneNumber { get; set; }
 }

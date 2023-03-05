@@ -39,7 +39,7 @@ internal class CaseEntity
         {
             Description = task.Description,
             EntryTime = task.EntryTime,
-            Status = task.Status
+            //Status = task.Status
         };
     }
 
@@ -50,7 +50,7 @@ internal class CaseEntity
             Id = caseEntity.Id,
             Description = caseEntity.Description,
             EntryTime = caseEntity.EntryTime,
-            Status = caseEntity.Status
+            //Status = caseEntity.Status
         };
     }
 

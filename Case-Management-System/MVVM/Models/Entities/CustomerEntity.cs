@@ -29,6 +29,7 @@ internal class CustomerEntity
 
     #region implicit operators
 
+    //Takes a Customer and makes a CustomerEntity
     public static implicit operator CustomerEntity(Customer customer)
     {
         return new CustomerEntity
@@ -40,6 +41,7 @@ internal class CustomerEntity
         };
     }
 
+    //Takes a CustomerEntity and makes a Customer
     public static implicit operator Customer(CustomerEntity customerEntity)
     {
         return new Customer
@@ -49,6 +51,18 @@ internal class CustomerEntity
             LastName = customerEntity.LastName,
             Email = customerEntity.Email,
             PhoneNumber = customerEntity.PhoneNumber
+        };
+    }
+
+    //Takes a Case and makes a CustomerEntity
+    public static implicit operator CustomerEntity(Case task)
+    {
+        return new CustomerEntity
+        {
+            FirstName = task.CustomerFirstName,
+            LastName = task.CustomerLastName,
+            Email = task.CustomerEmail, 
+            PhoneNumber = task.CustomerPhoneNumber
         };
     }
 
