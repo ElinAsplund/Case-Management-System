@@ -5,80 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Case_Management_System" 
         xmlns:viewmodels="clr-namespace:Case_Management_System.MVVM.ViewModels"
+        xmlns:views="clr-namespace:Case_Management_System.MVVM.Views"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800">
     <Grid>
-        <Grid Margin="0" 
-            Background="MistyRose">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <StackPanel Margin="30 0 30 0">
-                <TextBlock Text="{Binding Title}" 
-                    FontSize="16" 
-                    Margin="0 20 0 10" 
-                    FontWeight="DemiBold" 
-                    Foreground="#683b36"/>
-
-                <TextBlock Text="Förnamn*"/>
-                <TextBox Name="tb_FirstName" 
-                    Padding="3" 
-                    Margin="0 0 0 10" 
-                    Text="{Binding FirstName}" />
-
-                <TextBlock Text="Efternamn*"/>
-                <TextBox Name="tb_LastName" 
-                    Padding="3" 
-                    Margin="0 0 0 10" 
-                    Text="{Binding LastName}" />
-
-                <TextBlock Text="Email*"/>
-                <TextBox Name="tb_Email" 
-                    Padding="3" 
-                    Margin="0 0 0 10" 
-                    Text="{Binding Email}"/>
-
-                <TextBlock Text="Telefonnummer"/>
-                <TextBox Name="tb_PhoneNumber" 
-                    Padding="3" 
-                    Margin="0 0 0 10" 
-                    Text="{Binding PhoneNumber}" />
-                
-                <TextBlock Text="Beskrivning av ärende*"/>
-                <TextBox Name="tb_Description" 
-                    Padding="3" 
-                    Margin="0 0 0 10" 
-                    Height="100"
-                    TextWrapping="Wrap"
-                    AcceptsReturn="True"
-                    VerticalScrollBarVisibility="Visible"
-                    Text="{Binding Description}" />
-
-
-            </StackPanel>
+        <Grid 
+            Grid.Column="0"
+            Margin="0" 
+            Background="#c2847a">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
             <Button
-                Command="{Binding SaveCommand}"
-                Content="SPARA"
-                VerticalAlignment="Bottom"
+                Grid.Row="0"
+                Content="Add"
                 Cursor="Hand"
-                Background="#78b869"
+                Background="#633448"
                 BorderThickness="0"
                 Padding="5"
                 Foreground="White"
                 FontWeight="DemiBold"
-                Margin="30 0 30 20" />
+                Margin="5 5 5 0" 
+                Command="{Binding GoToAddACaseCommand}"/>
 
-            
-            <!--<ContentControl Content="{Binding CurrentViewModel}">
+            <Button
+                Grid.Row="1"
+                Content="List"
+                Cursor="Hand"
+                Background="#633448"
+                BorderThickness="0"
+                Padding="5"
+                Foreground="White"
+                FontWeight="DemiBold"
+                Margin="5 5 5 0" 
+                Command="{Binding GoToAllCasesListCommand}"/>
+        </Grid>
+        
+        <Grid
+            Grid.Column="1"
+            Margin="0" 
+            Background="MistyRose">
+
+            <ContentControl Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
 
-                    --><!--<DataTemplate DataType="{x:Type viewmodels:ContactsViewModel}">
-                        <views:ContactsView />
-                    </DataTemplate>--><!--
+                    <DataTemplate DataType="{x:Type viewmodels:AddACaseViewModel}">
+                        <views:AddACaseView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AllCasesListViewModel}">
+                        <views:AllCasesListView />
+                    </DataTemplate>
 
                 </ContentControl.Resources>
-            </ContentControl>-->
+            </ContentControl>
         </Grid>
     </Grid>
 </Window>

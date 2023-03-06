@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 
 namespace Case_Management_System.MVVM.Models.Entities;
 
@@ -20,7 +19,7 @@ internal class CaseEntity
 
     [EnumDataType(typeof(CaseStatus))]
     [Column(TypeName = "nvarchar(20)")]
-    public CaseStatus Status { get; set; } = CaseStatus.NotStarted;
+    public CaseStatus Status { get; set; }
 
 
     [Required]
@@ -39,7 +38,7 @@ internal class CaseEntity
         {
             Description = task.Description,
             EntryTime = task.EntryTime,
-            //Status = task.Status
+            Status = task.Status
         };
     }
 
@@ -50,7 +49,7 @@ internal class CaseEntity
             Id = caseEntity.Id,
             Description = caseEntity.Description,
             EntryTime = caseEntity.EntryTime,
-            //Status = caseEntity.Status
+            Status = caseEntity.Status
         };
     }
 

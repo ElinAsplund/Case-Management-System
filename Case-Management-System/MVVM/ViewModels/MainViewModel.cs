@@ -1,118 +1,49 @@
-﻿using Case_Management_System.Contexts;
-using Case_Management_System.MVVM.Models.Entities;
-using Case_Management_System.MVVM.Models;
+﻿using Case_Management_System.MVVM.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Case_Management_System.Services;
+using System.Collections.ObjectModel;
+using Case_Management_System.MVVM.Views;
 
 namespace Case_Management_System.MVVM.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
     [ObservableProperty]
-    private static ObservableObject currentViewModel = null!;
-
-    private DatabaseContext _context = new DatabaseContext();
-
-    //public MainViewModel()
-    //{
-    //    CurrentViewModel = new EmptyContactViewModel();
-    //}
-
-    //Syntax to change between views:
-    //[RelayCommand]
-    //public void GoToAddContact()
-    //{
-    //    CurrentViewModel = new AddContactViewModel();
-    //}
-
+    public static ObservableObject currentViewModel = null!;
 
     [ObservableProperty]
-    private string title = "Lägg till ett nytt ärende";
+    private ObservableCollection<Case> caseList = null!;
 
-    [ObservableProperty]
-    private string firstName = string.Empty;
-
-    [ObservableProperty]
-    private string lastName = string.Empty;
-
-    [ObservableProperty]
-    private string email = string.Empty;
- 
-    [ObservableProperty]
-    private string phoneNumber = string.Empty;
-
-    [ObservableProperty]
-    private string description = string.Empty;
-
-    //[RelayCommand]
-    //public async Task SaveAsync(Case task)
-    //{
-    //    CustomerEntity customerEntity = task;
-    //    CaseEntity caseEntity = task;
-
-    //    _context.Add(customerEntity);
-    //    _context.Add(caseEntity);
-    //    await _context.SaveChangesAsync();
-    //}
-
-    [RelayCommand]
-    private void Click()
+    public async Task populateCaseList()
     {
-        ClearForm();
+        CaseList = await DatabaseService.GetAllFromDbAsync();
     }
 
-    private void ClearForm()
+    public MainViewModel()
     {
-        FirstName = string.Empty;
-        LastName = string.Empty;
-        Email = string.Empty;
-        PhoneNumber = string.Empty;
-        Description = string.Empty;
+        Task.Run(async () => await populateCaseList());
+        CurrentViewModel = new AddACaseViewModel();
+    }
+
+
+    //Navigation commands
+    [RelayCommand]
+    public void GoToAllCasesList()
+    {
+        CurrentViewModel = new AllCasesListViewModel(CaseList);
     }
 
     [RelayCommand]
-    public async Task SaveAsync()
+    public void GoToAddACase()
     {
-        var task = new Case
-        {
-            Description = Description,
-            CustomerFirstName = FirstName,
-            CustomerLastName = LastName,
-            CustomerEmail = Email,
-            CustomerPhoneNumber = PhoneNumber,
-        };
-
-        CustomerEntity customerEntity = task;
-        CaseEntity caseEntity = task;
-
-        _context.Add(customerEntity);
-        caseEntity.CustomerId = customerEntity.Id;
-        _context.Add(caseEntity);
-        await _context.SaveChangesAsync();
-        ClearForm();
+        CurrentViewModel = new AddACaseViewModel();
     }
-    
-    //[RelayCommand]
-    //public void Saving()
-    //{
-    //    var task = new Case
-    //    {
-    //        Description = Description,
-    //        CustomerFirstName = FirstName,
-    //        CustomerLastName = LastName,
-    //        CustomerEmail = Email,
-    //        CustomerPhoneNumber = PhoneNumber,
-    //    };
 
-    //    CustomerEntity customerEntity = task;
-    //    CaseEntity caseEntity = task;
-
-    //    _context.Add(customerEntity);
-    //    caseEntity.CustomerId = customerEntity.Id;
-    //    _context.Add(caseEntity);
-    //    _context.SaveChanges();
-    //    ClearForm();
-    //}
+    [RelayCommand]
+    public void GoToAddComment()
+    {
+        CurrentViewModel = new AddCommentViewModel();
+    }
 }
