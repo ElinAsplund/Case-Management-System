@@ -33,11 +33,12 @@
                 <Run Text="Förnamn: "/>
                 <Run Text="{Binding TaskList[0].CustomerFirstName}"/>
             </TextBlock>
-            
+
             <ListView 
                 ItemsSource="{Binding TaskList}" 
                 BorderThickness="0"
-                HorizontalContentAlignment="Stretch" >
+                HorizontalContentAlignment="Stretch" 
+                Margin="0 0 0 0">
 
                 <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -72,18 +73,20 @@
                                             <i:InvokeCommandAction Command="{Binding Path=DataContext.GoToEditContactCommand, ElementName=Main}" CommandParameter="{Binding .}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>-->
-                                    <Button 
+                                    <!--<Button 
                                             Content="TEST"
-                                            Click="AddComment_Click"/>
+                                            Click="GetObject_Click"/>-->
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <EventSetter Event="PreviewMouseDown" Handler="ListViewItem_PreviewMouseDown"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
-        <Button 
-            VerticalAlignment="Bottom"
-            Content="Kommentar?"/>
     </Grid>
 </UserControl>

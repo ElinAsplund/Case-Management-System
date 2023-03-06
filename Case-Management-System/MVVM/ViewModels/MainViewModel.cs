@@ -44,6 +44,11 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public void GoToAddComment()
     {
-        CurrentViewModel = new AddCommentViewModel();
+        Case currentCase = AllCasesListView.clickedCase;
+
+        if (currentCase != null)
+            CurrentViewModel = new AddCommentViewModel(currentCase);
+        else
+            CurrentViewModel = new AddCommentViewModel();
     }
 }

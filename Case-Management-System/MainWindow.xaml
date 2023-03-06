@@ -23,6 +23,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Button
@@ -48,6 +49,18 @@
                 FontWeight="DemiBold"
                 Margin="5 5 5 0" 
                 Command="{Binding GoToAllCasesListCommand}"/>
+            
+            <Button
+                Grid.Row="2"
+                Content="Specific"
+                Cursor="Hand"
+                Background="#633448"
+                BorderThickness="0"
+                Padding="5"
+                Foreground="White"
+                FontWeight="DemiBold"
+                Margin="5 5 5 0" 
+                Command="{Binding GoToAddCommentCommand}"/>
         </Grid>
         
         <Grid
@@ -63,6 +76,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:AllCasesListViewModel}">
                         <views:AllCasesListView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AddCommentViewModel}">
+                        <views:AddCommentView />
                     </DataTemplate>
 
                 </ContentControl.Resources>
