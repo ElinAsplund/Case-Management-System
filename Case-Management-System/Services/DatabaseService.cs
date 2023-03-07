@@ -47,4 +47,14 @@ internal class DatabaseService
 
         return _cases;
     }
+
+    public static async Task ChangeStatusAsync(Case task)
+    {
+        var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == task.Id);
+
+        _dbCaseEntity!.Status = task.Status;
+
+        _context.Update(_dbCaseEntity);
+        await _context.SaveChangesAsync();
+    }
 }

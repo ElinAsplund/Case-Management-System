@@ -13,6 +13,7 @@
         Margin="30 0 30 20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -20,12 +21,20 @@
             Text="Alla ärenden:"
             Grid.Row="0"
             FontSize="16" 
-            Margin="0 20 0 10" 
+            Margin="0 20 0 0" 
+            FontWeight="DemiBold" 
+            Foreground="#683b36"/>
+
+        <TextBlock 
+            Text="För att se detaljerad information, markera ärendet och tryck på knappen specific!"
+            Grid.Row="1"
+            FontSize="16" 
+            Margin="0 0 0 10" 
             FontWeight="DemiBold" 
             Foreground="#683b36"/>
 
         <Grid 
-            Grid.Row="1" 
+            Grid.Row="2" 
             Name="Main">
 
             <TextBlock
@@ -40,12 +49,6 @@
                 HorizontalContentAlignment="Stretch" 
                 Margin="0 0 0 0">
 
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding GoToContactsCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
-
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="models:Case">
                         <StackPanel Margin="0 5 0 5" 
@@ -59,23 +62,20 @@
                                 <StackPanel 
                                     Grid.Column="0" 
                                     Margin="5 5 5 5">
-                                    <TextBlock Name="tblock_DisplayName" 
-                                                   FontWeight="Bold" 
-                                                   Text="{Binding CustomerFirstName}" />
-                                    <TextBlock Name="tblock_Email" 
-                                                   Text="{Binding CustomerLastName}" />
+                                    <TextBlock 
+                                        FontWeight="Bold" 
+                                        Text="{Binding CustomerFirstName}" />
+                                    <TextBlock
+                                        Text="{Binding CustomerLastName}" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" 
-                                                Orientation="Horizontal" >
-                                    <!--<i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                            <i:InvokeCommandAction Command="{Binding Path=DataContext.GoToEditContactCommand, ElementName=Main}" CommandParameter="{Binding .}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>-->
-                                    <!--<Button 
-                                            Content="TEST"
-                                            Click="GetObject_Click"/>-->
+                                        Orientation="Horizontal" >
+                                    <TextBlock
+                                        FontWeight="Bold" 
+                                        Text="Status: " />
+                                    <TextBlock
+                                        Text="{Binding Status}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -83,7 +83,7 @@
                 </ListView.ItemTemplate>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <EventSetter Event="PreviewMouseDown" Handler="ListViewItem_PreviewMouseDown"/>
+                        <EventSetter Event="PreviewMouseDown" Handler="ClickedListViewItem"/>
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>

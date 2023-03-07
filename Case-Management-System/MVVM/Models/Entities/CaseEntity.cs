@@ -58,12 +58,12 @@ internal class CaseEntity
 
 public enum CaseStatus
 {
-    [EnumMember(Value = "Ej påbörjad")]
+    //[EnumMember(Value = "Ej påbörjad")]
     NotStarted,
 
-    [EnumMember(Value = "Pågående")]
+    //[EnumMember(Value = "Pågående")]
     InProgress,
 
-    [EnumMember(Value = "Avslutad")]
+    //[EnumMember(Value = "Avslutad")]
     Completed
 }

@@ -1,6 +1,14 @@
 ﻿using Case_Management_System.MVVM.Models;
+using Case_Management_System.MVVM.Models.Entities;
+using Case_Management_System.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace Case_Management_System.MVVM.ViewModels;
 
@@ -10,10 +18,31 @@ public partial class AddCommentViewModel : ObservableObject
     public Case currentTask = null!;
 
     [ObservableProperty]
-    private string firstName = string.Empty;
-    
+    public int id;
+
     [ObservableProperty]
     private string description = string.Empty;
+
+    [ObservableProperty]
+    public DateTime entryTime;
+
+    [ObservableProperty]
+    public string status;
+
+    [ObservableProperty]
+    private string firstName = string.Empty;
+
+    [ObservableProperty]
+    public string lastName = string.Empty;
+
+    [ObservableProperty]
+    public string email = string.Empty;
+
+    [ObservableProperty]
+    public string? phoneNumber = string.Empty;
+
+    [ObservableProperty]
+    public string selectedStatus = "Välj en uppdaterad status:";
 
 
     public AddCommentViewModel()
@@ -24,8 +53,51 @@ public partial class AddCommentViewModel : ObservableObject
     {
         currentTask = currentCase;
 
-        FirstName = currentTask.CustomerFirstName;
+        Id = currentTask.Id;
         Description = currentTask.Description;
+        EntryTime = currentTask.EntryTime;
+
+        //Convert the enum to a string, in swedish:
+        if (currentTask.Status == CaseStatus.NotStarted)
+            Status = "Ej påbörjad";
+        else if (currentTask.Status == CaseStatus.InProgress)
+            Status = "Pågående";
+        else if (currentTask.Status == CaseStatus.Completed)
+            Status = "Avslutad";
+       
+        FirstName = currentTask.CustomerFirstName;
+        LastName = currentTask.CustomerLastName;
+        Email = currentTask.CustomerEmail;
+
+        //Check if there is a phonenumber in the db and if there isn't any,
+        //sets it to a string-message for the frontend:
+        if (currentTask.CustomerPhoneNumber == "             ")
+            PhoneNumber = "Inget telefonnummer angivet.";
+        else
+            PhoneNumber = currentTask.CustomerPhoneNumber;
+
     }
 
+
+    [RelayCommand]
+    public async Task UpdateStatusAsync()
+    {
+        if(SelectedStatus != "Välj en uppdaterad status:")
+        {
+
+            if(SelectedStatus == "Ej påbörjad")
+                CurrentTask.Status = CaseStatus.NotStarted;
+            else if(SelectedStatus == "Pågående")
+                CurrentTask.Status = CaseStatus.InProgress;
+            else if(SelectedStatus == "Avslutad")
+                CurrentTask.Status = CaseStatus.Completed;
+
+            var test = CurrentTask;
+
+            await DatabaseService.ChangeStatusAsync(test);
+
+            //FRONTEND!
+            Status = SelectedStatus;
+        }
+    }
 }

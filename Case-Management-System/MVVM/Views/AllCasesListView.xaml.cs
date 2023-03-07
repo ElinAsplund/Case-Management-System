@@ -25,7 +25,7 @@ namespace Case_Management_System.MVVM.Views
         //    clickedCase = caseObject!;
         //}
 
-        private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ClickedListViewItem(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
             var caseObject = item!.DataContext as Case;
