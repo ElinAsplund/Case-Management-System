@@ -43,13 +43,17 @@ public partial class AddCommentViewModel : ObservableObject
     public string comment = string.Empty;
 
     [ObservableProperty]
-    public string selectedStatus = "Välj en uppdaterad status:";
+    public string selectedStatus = "Välj en ny status:";
+
+    [ObservableProperty]
+    public Employee selectedEmployee = null!;
 
     [ObservableProperty]
     private ObservableCollection<Employee> employeesList = null!;
 
     public AddCommentViewModel()
     {
+        Task.Run(async () => await populateEmployeesList());
     }
 
     public async Task populateEmployeesList()
@@ -108,5 +112,11 @@ public partial class AddCommentViewModel : ObservableObject
             //FRONTEND!
             Status = SelectedStatus;
         }
+    }
+
+    [RelayCommand]
+    public void TestAddComment()
+    {
+        Employee testSelectedEmployee = SelectedEmployee;
     }
 }
