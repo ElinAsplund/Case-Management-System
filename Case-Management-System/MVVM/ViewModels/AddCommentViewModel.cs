@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Case_Management_System.MVVM.ViewModels;
@@ -50,11 +51,17 @@ public partial class AddCommentViewModel : ObservableObject
     public AddCommentViewModel()
     {
     }
-    
+
+    public async Task populateEmployeesList()
+    {
+        EmployeesList = await DatabaseService.GetAllEmployeesAsync();
+    }
+
     public AddCommentViewModel(Case currentCase, ObservableCollection<Employee> employees)
     {
 
         employeesList = employees;
+        Task.Run(async () => await populateEmployeesList());
 
         currentTask = currentCase;
 
