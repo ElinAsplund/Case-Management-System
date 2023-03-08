@@ -12,8 +12,14 @@
         <Grid
             Margin="0" 
             Background="MistyRose">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel Margin="30 0 30 0">
+            <StackPanel 
+                Grid.Row="0"
+                Margin="30 0 30 0">
                 <TextBlock Text="{Binding Title}" 
                     FontSize="16" 
                     Margin="0 20 0 10" 
@@ -59,15 +65,15 @@
 
             <Button
                 Command="{Binding SaveCommand}"
+                Grid.Row="1"
                 Content="SPARA"
-                VerticalAlignment="Bottom"
                 Cursor="Hand"
                 Background="#78b869"
                 BorderThickness="0"
                 Padding="5"
                 Foreground="White"
                 FontWeight="DemiBold"
-                Margin="30 0 30 20" />
+                Margin="30 10 30 20" />
         </Grid>
     </Grid>
 </UserControl>

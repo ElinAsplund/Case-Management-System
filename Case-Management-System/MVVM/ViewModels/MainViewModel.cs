@@ -14,16 +14,25 @@ public partial class MainViewModel : ObservableObject
     public static ObservableObject currentViewModel = null!;
 
     [ObservableProperty]
-    private ObservableCollection<Case> caseList = null!;
+    private ObservableCollection<Case> casesList = null!;
 
-    public async Task populateCaseList()
+    [ObservableProperty]
+    private ObservableCollection<Employee> employeesList = null!;
+
+    public async Task populateCasesList()
     {
-        CaseList = await DatabaseService.GetAllFromDbAsync();
+        CasesList = await DatabaseService.GetAllFromDbAsync();
+    }
+
+    public async Task populateEmployeesList()
+    {
+        EmployeesList = await DatabaseService.GetAllEmployeesAsync();
     }
 
     public MainViewModel()
     {
-        Task.Run(async () => await populateCaseList());
+        Task.Run(async () => await populateCasesList());
+        Task.Run(async () => await populateEmployeesList());
         CurrentViewModel = new AddACaseViewModel();
     }
 
@@ -32,7 +41,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public void GoToAllCasesList()
     {
-        CurrentViewModel = new AllCasesListViewModel(CaseList);
+        CurrentViewModel = new AllCasesListViewModel(CasesList);
     }
 
     [RelayCommand]
@@ -47,7 +56,7 @@ public partial class MainViewModel : ObservableObject
         Case currentCase = AllCasesListView.clickedCase;
 
         if (currentCase != null)
-            CurrentViewModel = new AddCommentViewModel(currentCase);
+            CurrentViewModel = new AddCommentViewModel(currentCase, EmployeesList);
         else
             CurrentViewModel = new AddCommentViewModel();
     }

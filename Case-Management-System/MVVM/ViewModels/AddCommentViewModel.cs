@@ -3,11 +3,8 @@ using Case_Management_System.MVVM.Models.Entities;
 using Case_Management_System.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Case_Management_System.MVVM.ViewModels;
@@ -42,15 +39,23 @@ public partial class AddCommentViewModel : ObservableObject
     public string? phoneNumber = string.Empty;
 
     [ObservableProperty]
+    public string comment = string.Empty;
+
+    [ObservableProperty]
     public string selectedStatus = "Välj en uppdaterad status:";
 
+    [ObservableProperty]
+    private ObservableCollection<Employee> employeesList = null!;
 
     public AddCommentViewModel()
     {
     }
     
-    public AddCommentViewModel(Case currentCase)
+    public AddCommentViewModel(Case currentCase, ObservableCollection<Employee> employees)
     {
+
+        employeesList = employees;
+
         currentTask = currentCase;
 
         Id = currentTask.Id;
@@ -78,7 +83,6 @@ public partial class AddCommentViewModel : ObservableObject
 
     }
 
-
     [RelayCommand]
     public async Task UpdateStatusAsync()
     {
@@ -92,9 +96,7 @@ public partial class AddCommentViewModel : ObservableObject
             else if(SelectedStatus == "Avslutad")
                 CurrentTask.Status = CaseStatus.Completed;
 
-            var test = CurrentTask;
-
-            await DatabaseService.ChangeStatusAsync(test);
+            await DatabaseService.ChangeStatusAsync(CurrentTask);
 
             //FRONTEND!
             Status = SelectedStatus;

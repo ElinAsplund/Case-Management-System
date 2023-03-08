@@ -4,7 +4,7 @@ using System;
 
 namespace Case_Management_System.MVVM.Models;
 
-internal class Customer
+public class Customer
 {
     public Guid Id { get; set; }
 

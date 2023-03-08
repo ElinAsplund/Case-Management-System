@@ -47,6 +47,25 @@ internal class DatabaseService
 
         return _cases;
     }
+    public static async Task<ObservableCollection<Employee>> GetAllEmployeesAsync()
+    {
+        var _employees = new ObservableCollection<Employee>();
+
+        foreach (var _employee in await _context.Employees.ToListAsync())
+        {
+            EmployeeEntity employeeEntity = _employee;
+
+            _employees.Add(new Employee
+            {
+                Id = employeeEntity.Id,
+                FirstName = employeeEntity.FirstName,
+                LastName = employeeEntity.LastName,
+                NameInitials = employeeEntity.NameInitials
+            });
+        }
+
+        return _employees;
+    }
 
     public static async Task ChangeStatusAsync(Case task)
     {
@@ -55,6 +74,23 @@ internal class DatabaseService
         _dbCaseEntity!.Status = task.Status;
 
         _context.Update(_dbCaseEntity);
+        await _context.SaveChangesAsync();
+    }
+
+    public static async Task SaveCommentToDbAsync(Comment comment)
+    {
+
+        //COMMENT ENTITY BEHÖVER:
+        //Comment
+        //EntryTime
+        //CaseId
+        //EmployeeId
+        //CustomerEntity customerEntity = task;
+        //CaseEntity caseEntity = task;
+
+        //_context.Add(customerEntity);
+        //caseEntity.CustomerId = customerEntity.Id;
+        //_context.Add(caseEntity);
         await _context.SaveChangesAsync();
     }
 }

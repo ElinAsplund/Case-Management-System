@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Case_Management_System.MVVM.Models;
 
-internal class Employee
+public class Employee
 {
     public int Id { get; set; }
 

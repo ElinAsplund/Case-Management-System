@@ -24,6 +24,12 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock 
@@ -79,8 +85,14 @@
                 <Run Text="{Binding Status}"/>
         </TextBlock>
 
+        <TextBlock
+            Grid.Row="8">
+                <Run Text="Kommentarer:"/>
+                <Run Text=""/>
+        </TextBlock>
+
         <TextBlock 
-            Grid.Row="8"
+            Grid.Row="9"
             Text="Ändra status:" 
             FontSize="16" 
             Margin="0 10 0 10" 
@@ -88,7 +100,7 @@
             Foreground="#683b36"/>
 
         <ComboBox 
-            Grid.Row="9"
+            Grid.Row="10"
             Width="170" 
             Height="25" 
             HorizontalAlignment="Left"
@@ -100,13 +112,41 @@
                 <ComboBoxItem Content="Avslutad"/>
         </ComboBox>
 
-
         <Button
-            Grid.Row="10"
+            Grid.Row="11"
             Content="UPPDATERA STATUS"
             HorizontalAlignment="Left"
             Margin="0 10 0 10"
             Padding="10 5 10 5"
             Command="{Binding UpdateStatusCommand}"/>
+
+        <TextBlock 
+            Grid.Row="12"
+            Text="Lägg till en kommentar:"/>
+        
+        <TextBox
+            Grid.Row="13"
+            Padding="3" 
+            Height="100"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible"
+            Text="{Binding Comment}" />
+
+        <Button
+            Grid.Row="14"
+            Content="LÄGG TILL KOMMENTAR"
+            HorizontalAlignment="Left"
+            Margin="0 10 0 10"
+            Padding="10 5 10 5"
+            Command=""/>
+
+        <TextBlock
+            Grid.Row="15"
+            FontSize="16"
+            Margin="0 10 0 0">
+                <Run Text="Test Initialer:"/>
+                <Run Text="{Binding EmployeesList[0].NameInitials}"/>
+        </TextBlock>
     </Grid>
 </UserControl>
