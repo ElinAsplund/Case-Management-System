@@ -71,10 +71,10 @@ internal class DatabaseService
     }
 
 
-    public static async Task<ObservableCollection<CommentEntity>> GetCommentsFromDbAsync(Case currentTask)
+    public static async Task<ObservableCollection<Comment>> GetSpecificCommentsFromDbAsync(Case currentTask)
     {
         var _allComments = new ObservableCollection<CommentEntity>();
-        var _actualComments = new ObservableCollection<CommentEntity>();
+        var _actualComments = new ObservableCollection<Comment>();
         var currentTaskId = currentTask.Id;
 
         foreach (var _comment in await _context.Comments.ToListAsync())
@@ -84,7 +84,8 @@ internal class DatabaseService
 
         foreach(var _actualComment in _allComments.Where(x => x.CaseId == currentTaskId))
         {
-            _actualComments.Add(_actualComment);
+            Comment _comment = _actualComment;
+            _actualComments.Add(_comment);
         }    
 
         return _actualComments;

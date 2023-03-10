@@ -31,6 +31,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock 
@@ -82,18 +84,12 @@
             Grid.Row="7"
             FontSize="16"
             Margin="0 10 0 0">
-                <Run Text="Status:"/>
+                <Run Text="Aktuell status:"/>
                 <Run Text="{Binding Status}"/>
         </TextBlock>
 
-        <TextBlock
-            Grid.Row="8">
-                <Run Text="Kommentarer:"/>
-                <Run Text=""/>
-        </TextBlock>
-
         <TextBlock 
-            Grid.Row="9"
+            Grid.Row="8"
             Text="Ändra status:" 
             FontSize="16" 
             Margin="0 10 0 10" 
@@ -101,7 +97,7 @@
             Foreground="#683b36"/>
 
         <ComboBox 
-            Grid.Row="10"
+            Grid.Row="9"
             Width="170" 
             Height="25" 
             HorizontalAlignment="Left"
@@ -114,34 +110,65 @@
         </ComboBox>
 
         <Button
-            Grid.Row="11"
+            Grid.Row="10"
             Content="UPPDATERA STATUS"
             HorizontalAlignment="Left"
-            Margin="0 10 0 10"
+            Margin="0 20 0 10"
             Padding="10 5 10 5"
             Command="{Binding UpdateStatusCommand}"/>
 
-        <TextBlock 
+        <Border 
+            Grid.Row="11"
+            Margin="0 30 0 0"
+            BorderThickness="0,1,0,0" 
+            BorderBrush="#633448">
+            <TextBlock
+                Grid.Row="12"
+                FontSize="16"
+                Margin="0 20 0 0">
+                    <Run Text="Kommentar(er):"/>
+            </TextBlock>
+        </Border>
+
+        <ListBox 
             Grid.Row="12"
-            Text="Lägg till en kommentar:"/>
-        
-        <TextBox
+            MinHeight="25"
+            ItemsSource="{Binding CommentsList}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding EntryTime, StringFormat='dd/MM/yyyy HH:mm:ss'}"/>
+                        <Run Text=":"/>
+                        <Run Text="{Binding CommentString}"/>
+                        <Run Text="/"/>
+                        <Run Text="{Binding SigningEmployee.NameInitials}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBlock 
             Grid.Row="13"
+            Margin="0 10 0 0"
+            Text="Lägg till en kommentar:"/>
+
+        <TextBox
+            Grid.Row="14"
             Padding="3" 
-            Height="100"
+            Height="60"
             TextWrapping="Wrap"
             AcceptsReturn="True"
             VerticalScrollBarVisibility="Visible"
             Text="{Binding EnteredComment}" />
 
         <TextBlock
-            Grid.Row="14"
+            Grid.Row="15"
             Margin="0 10 0 0">
                 <Run Text="Signerat:"/>
         </TextBlock>
 
         <ComboBox 
-            Grid.Row="15"
+            Grid.Row="16"
             Width="170" 
             Height="25" 
             HorizontalAlignment="Left"
@@ -155,20 +182,12 @@
         </ComboBox>
 
         <Button
-            Grid.Row="16"
+            Grid.Row="17"
             Content="LÄGG TILL KOMMENTAR"
             HorizontalAlignment="Left"
-            Margin="0 10 0 10"
+            Margin="0 20 0 10"
             Padding="10 5 10 5"
             Command="{Binding AddCommentCommand}"/>
-
-        <TextBlock
-            Grid.Row="17"
-            FontSize="16"
-            Margin="0 10 0 0">
-                <Run Text="TESTkommentar:"/>
-                <Run Text="{Binding CommentsList[0].Comment}"/>
-        </TextBlock>
 
     </Grid>
 </UserControl>

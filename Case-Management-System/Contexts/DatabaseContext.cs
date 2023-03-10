@@ -21,6 +21,18 @@ internal class DatabaseContext : DbContext
 
     #endregion
 
+    #region start employees
+
+    EmployeeEntity employeeFirst = new EmployeeEntity
+    {
+        Id = 1000,
+        FirstName = "Ingen anställd är vald",
+        LastName = "Ingen anställd är vald",
+        NameInitials = "Ingen anställd är vald"
+    };
+
+    #endregion
+
     #region overrides
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -34,6 +46,8 @@ internal class DatabaseContext : DbContext
             .Property(x => x.Id)
             .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
             .HasAnnotation("SqlServer:IdentitySeed", 1000);
+
+        modelBuilder.Entity<EmployeeEntity>().HasData(employeeFirst);
     }
     #endregion
 

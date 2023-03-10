@@ -17,13 +17,13 @@ public partial class AddCommentViewModel : ObservableObject
     public Case currentTask = null!;
 
     [ObservableProperty]
-    public int id;
+    public int? id;
 
     [ObservableProperty]
     private string description = string.Empty;
 
     [ObservableProperty]
-    public DateTime entryTime;
+    public string? entryTime;
 
     [ObservableProperty]
     public string status;
@@ -53,34 +53,35 @@ public partial class AddCommentViewModel : ObservableObject
     private ObservableCollection<Employee> employeesList = null!;
     
     [ObservableProperty]
-    private ObservableCollection<CommentEntity> commentsList = null!;
+    private ObservableCollection<Comment> commentsList = null!;
 
     public AddCommentViewModel()
     {
         Task.Run(async () => await populateEmployeesList());
     }
 
+    public async Task populateLists(Case currentTask)
+    {
+        EmployeesList = await DatabaseService.GetAllEmployeesAsync();
+        CommentsList = await DatabaseService.GetSpecificCommentsFromDbAsync(currentTask);
+    }
     public async Task populateEmployeesList()
     {
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
-    }
-    public async Task populateCommentsList(Case currentTask)
-    {
-        CommentsList = await DatabaseService.GetCommentsFromDbAsync(currentTask);
     }
 
     public AddCommentViewModel(Case currentCase, ObservableCollection<Employee> employees)
     {
 
         employeesList = employees;
-        Task.Run(async () => await populateEmployeesList());
-        Task.Run(async () => await populateCommentsList(currentTask));
+        //Task.Run(async () => await populateEmployeesList());
+        Task.Run(async () => await populateLists(currentTask));
 
         currentTask = currentCase;
 
         Id = currentTask.Id;
         Description = currentTask.Description;
-        EntryTime = currentTask.EntryTime;
+        EntryTime = currentTask.EntryTime.ToString("dd/MM/yyyy HH:mm:ss");
 
         //Convert the enum to a string, in swedish:
         if (currentTask.Status == CaseStatus.NotStarted)
