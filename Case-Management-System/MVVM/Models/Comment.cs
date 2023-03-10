@@ -13,5 +13,5 @@ public class Comment
     
     public DateTime EntryTime { get; set; } = DateTime.Now;
 
-    public Employee Employee { get; set; } = null!;
+    public Employee SigningEmployee { get; set; } = null!;
 }

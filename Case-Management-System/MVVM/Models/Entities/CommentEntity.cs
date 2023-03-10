@@ -4,7 +4,7 @@ using System;
 
 namespace Case_Management_System.MVVM.Models.Entities;
 
-internal class CommentEntity
+public class CommentEntity
 {
     [Key]
     public int Id { get; set; }
@@ -34,7 +34,8 @@ internal class CommentEntity
         return new CommentEntity
         {
             Comment = comment.CommentString,
-            EntryTime = comment.EntryTime
+            EntryTime = comment.EntryTime,
+            EmployeeId = comment.SigningEmployee.Id
         };
     }
 
@@ -44,7 +45,8 @@ internal class CommentEntity
         {
             Id = commentEntity.Id,
             CommentString = commentEntity.Comment,
-            EntryTime = commentEntity.EntryTime
+            EntryTime = commentEntity.EntryTime,
+            SigningEmployee = commentEntity.Employee
         };
     }
 

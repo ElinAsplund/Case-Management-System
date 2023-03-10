@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace Case_Management_System.Services;
 
@@ -47,6 +49,7 @@ internal class DatabaseService
 
         return _cases;
     }
+
     public static async Task<ObservableCollection<Employee>> GetAllEmployeesAsync()
     {
         var _employees = new ObservableCollection<Employee>();
@@ -67,6 +70,26 @@ internal class DatabaseService
         return _employees;
     }
 
+
+    public static async Task<ObservableCollection<CommentEntity>> GetCommentsFromDbAsync(Case currentTask)
+    {
+        var _allComments = new ObservableCollection<CommentEntity>();
+        var _actualComments = new ObservableCollection<CommentEntity>();
+        var currentTaskId = currentTask.Id;
+
+        foreach (var _comment in await _context.Comments.ToListAsync())
+        {
+            _allComments.Add(_comment);
+        };
+
+        foreach(var _actualComment in _allComments.Where(x => x.CaseId == currentTaskId))
+        {
+            _actualComments.Add(_actualComment);
+        }    
+
+        return _actualComments;
+    }
+
     public static async Task ChangeStatusAsync(Case task)
     {
         var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == task.Id);
@@ -77,20 +100,11 @@ internal class DatabaseService
         await _context.SaveChangesAsync();
     }
 
-    public static async Task SaveCommentToDbAsync(Comment comment)
+    public static async Task SaveCommentToDbAsync(Comment comment, int caseId)
     {
-
-        //COMMENT ENTITY BEHÖVER:
-        //Comment
-        //EntryTime
-        //CaseId
-        //EmployeeId
-        //CustomerEntity customerEntity = task;
-        //CaseEntity caseEntity = task;
-
-        //_context.Add(customerEntity);
-        //caseEntity.CustomerId = customerEntity.Id;
-        //_context.Add(caseEntity);
+        CommentEntity commentEntity = comment;
+        commentEntity.CaseId = caseId;
+        _context.Add(commentEntity);
         await _context.SaveChangesAsync();
     }
 }

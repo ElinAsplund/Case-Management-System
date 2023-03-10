@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Case_Management_System.MVVM.Models.Entities;
 
 [Index(nameof(Email), IsUnique = true)]
-internal class CustomerEntity
+public class CustomerEntity
 {
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();

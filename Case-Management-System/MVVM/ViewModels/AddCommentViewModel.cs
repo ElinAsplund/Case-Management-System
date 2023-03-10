@@ -4,6 +4,7 @@ using Case_Management_System.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ public partial class AddCommentViewModel : ObservableObject
     public string? phoneNumber = string.Empty;
 
     [ObservableProperty]
-    public string comment = string.Empty;
+    public string enteredComment = string.Empty;
 
     [ObservableProperty]
     public string selectedStatus = "Välj en ny status:";
@@ -50,6 +51,9 @@ public partial class AddCommentViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<Employee> employeesList = null!;
+    
+    [ObservableProperty]
+    private ObservableCollection<CommentEntity> commentsList = null!;
 
     public AddCommentViewModel()
     {
@@ -60,12 +64,17 @@ public partial class AddCommentViewModel : ObservableObject
     {
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
     }
+    public async Task populateCommentsList(Case currentTask)
+    {
+        CommentsList = await DatabaseService.GetCommentsFromDbAsync(currentTask);
+    }
 
     public AddCommentViewModel(Case currentCase, ObservableCollection<Employee> employees)
     {
 
         employeesList = employees;
         Task.Run(async () => await populateEmployeesList());
+        Task.Run(async () => await populateCommentsList(currentTask));
 
         currentTask = currentCase;
 
@@ -115,8 +124,15 @@ public partial class AddCommentViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void TestAddComment()
+    public async Task AddCommentAsync()
     {
-        Employee testSelectedEmployee = SelectedEmployee;
+        Comment _comment = new Comment {
+            CommentString = EnteredComment,
+            SigningEmployee = SelectedEmployee
+        };
+
+        await DatabaseService.SaveCommentToDbAsync(_comment, CurrentTask.Id);
+
+        EnteredComment = "";
     }
 }

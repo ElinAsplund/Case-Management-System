@@ -30,6 +30,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock 
@@ -131,7 +132,7 @@
             TextWrapping="Wrap"
             AcceptsReturn="True"
             VerticalScrollBarVisibility="Visible"
-            Text="{Binding Comment}" />
+            Text="{Binding EnteredComment}" />
 
         <TextBlock
             Grid.Row="14"
@@ -159,6 +160,15 @@
             HorizontalAlignment="Left"
             Margin="0 10 0 10"
             Padding="10 5 10 5"
-            Command="{Binding TestAddCommentCommand}"/>
+            Command="{Binding AddCommentCommand}"/>
+
+        <TextBlock
+            Grid.Row="17"
+            FontSize="16"
+            Margin="0 10 0 0">
+                <Run Text="TESTkommentar:"/>
+                <Run Text="{Binding CommentsList[0].Comment}"/>
+        </TextBlock>
+
     </Grid>
 </UserControl>

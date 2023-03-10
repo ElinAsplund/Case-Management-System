@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace Case_Management_System.MVVM.Models.Entities;
 
-internal class CaseEntity
+public class CaseEntity
 {
     [Key]
     public int Id { get; set; }
@@ -58,12 +58,7 @@ internal class CaseEntity
 
 public enum CaseStatus
 {
-    //[EnumMember(Value = "Ej påbörjad")]
     NotStarted,
-
-    //[EnumMember(Value = "Pågående")]
     InProgress,
-
-    //[EnumMember(Value = "Avslutad")]
     Completed
 }

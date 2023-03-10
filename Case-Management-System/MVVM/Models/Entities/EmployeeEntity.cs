@@ -9,7 +9,7 @@ namespace Case_Management_System.MVVM.Models.Entities;
 
 [Index(nameof(NameInitials), IsUnique = true)]
 
-internal class EmployeeEntity
+public class EmployeeEntity
 {
     [Key]
     public int Id { get; set; }
