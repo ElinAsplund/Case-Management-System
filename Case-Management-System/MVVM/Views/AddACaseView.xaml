@@ -20,6 +20,7 @@
             <StackPanel 
                 Grid.Row="0"
                 Margin="30 0 30 0">
+                
                 <TextBlock Text="{Binding Title}" 
                     FontSize="16" 
                     Margin="0 20 0 10" 
@@ -27,32 +28,37 @@
                     Foreground="#683b36"/>
 
                 <TextBlock Text="Förnamn*"/>
-                <TextBox Name="tb_FirstName" 
-                    Padding="3" 
+                <TextBox
+                    BorderThickness="0"
+                    Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding FirstName}" />
 
                 <TextBlock Text="Efternamn*"/>
-                <TextBox Name="tb_LastName" 
-                    Padding="3" 
+                <TextBox 
+                    BorderThickness="0"
+                    Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding LastName}" />
 
                 <TextBlock Text="Email*"/>
-                <TextBox Name="tb_Email" 
-                    Padding="3" 
+                <TextBox 
+                    BorderThickness="0"
+                    Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding Email}"/>
 
                 <TextBlock Text="Telefonnummer"/>
-                <TextBox Name="tb_PhoneNumber" 
-                    Padding="3" 
+                <TextBox 
+                    BorderThickness="0"
+                    Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding PhoneNumber}" />
 
                 <TextBlock Text="Beskrivning av ärende*"/>
-                <TextBox Name="tb_Description" 
-                    Padding="3" 
+                <TextBox
+                    BorderThickness="0"
+                    Padding="5" 
                     Margin="0 0 0 10" 
                     Height="100"
                     TextWrapping="Wrap"
@@ -70,9 +76,11 @@
                 Cursor="Hand"
                 Background="#2da97c"
                 BorderThickness="0"
+                Width="160"
                 Padding="5"
                 Foreground="White"
                 FontWeight="DemiBold"
+                HorizontalAlignment="Left"
                 Margin="30 10 30 20" />
         </Grid>
     </Grid>

@@ -7,7 +7,6 @@
              xmlns:entity="clr-namespace:Case_Management_System.MVVM.Models.Entities"
              xmlns:viewmodels="clr-namespace:Case_Management_System.MVVM.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodels:AddCommentViewModel}"
-
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <Grid
@@ -263,6 +262,7 @@
             Content="UPPDATERA STATUS"
             HorizontalAlignment="Left"
             Margin="10 10 0 0"
+            Width="160"
             Padding="10 5 10 5"
             Cursor="Hand"
             Background="#2da97c"
@@ -325,6 +325,7 @@
             HorizontalAlignment="Left"
             Margin="10 10 0 10"
             Padding="10 5 10 5"
+            Width="160"
             Cursor="Hand"
             Background="#2da97c"
             BorderThickness="0"
