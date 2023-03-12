@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Case_Management_System.MVVM.Views.EmptyDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Case_Management_System.MVVM.Views"
+             xmlns:models="clr-namespace:Case_Management_System.MVVM.Models"
+             xmlns:viewmodels="clr-namespace:Case_Management_System.MVVM.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:EmptyDetailsViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid
+        Margin="30 0 30 20">
+
+        <StackPanel>
+            <TextBlock 
+                Text="Detaljerad information:"
+                FontSize="16" 
+                Margin="0 20 0 0" 
+                FontWeight="DemiBold" 
+                Foreground="#683b36"/>
+
+            <TextBlock 
+                Margin="5 5 0 10" 
+                Foreground="#683b36">
+                <Run Text="Markera ärendet du vill veta mer om, i ärendelistan, som du hittar när du trycker på knappen "/>
+                <Run 
+                    FontWeight="Bold"
+                    Text="&quot;Alla ärenden&quot;"/>
+                <Run Text="!"/>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

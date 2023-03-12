@@ -33,9 +33,9 @@ public partial class MainViewModel : ObservableObject
     {
         Task.Run(async () => await populateCasesList());
         Task.Run(async () => await populateEmployeesList());
-        CurrentViewModel = new AddACaseViewModel();
+        CurrentViewModel = new FirstViewModel();
     }
-
+    
 
     //Navigation commands
     [RelayCommand]
@@ -58,6 +58,8 @@ public partial class MainViewModel : ObservableObject
         if (currentCase != null)
             CurrentViewModel = new AddCommentViewModel(currentCase, EmployeesList);
         else
-            CurrentViewModel = new AddCommentViewModel();
+            CurrentViewModel = new EmptyDetailsViewModel();
     }
+    
+
 }

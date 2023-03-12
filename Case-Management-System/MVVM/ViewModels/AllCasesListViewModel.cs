@@ -12,6 +12,7 @@ public partial class AllCasesListViewModel : ObservableObject
 {
     [ObservableProperty]
     private ObservableCollection<Case> taskList = null!;
+    
 
     public AllCasesListViewModel()
     {
@@ -28,11 +29,4 @@ public partial class AllCasesListViewModel : ObservableObject
         TaskList = await DatabaseService.GetAllFromDbAsync();
     }
 
-    //[RelayCommand]
-    //public void GoToAddComment()
-    //{
-    //    var task = AllCasesListView.clickedCase;
-
-    //    MainViewModel.currentViewModel = new AddCommentViewModel(task);
-    //}
 }

@@ -133,7 +133,7 @@ namespace Case_Management_System.Migrations
 
                     b.Property<string>("NameInitials")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -141,6 +141,50 @@ namespace Case_Management_System.Migrations
                         .IsUnique();
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1000,
+                            FirstName = "Ingen är vald.",
+                            LastName = "",
+                            NameInitials = "Ingen signatur vald."
+                        },
+                        new
+                        {
+                            Id = 1001,
+                            FirstName = "Göran",
+                            LastName = "Persson",
+                            NameInitials = "GP"
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            FirstName = "Fredrik",
+                            LastName = "Reinfeldt",
+                            NameInitials = "FR"
+                        },
+                        new
+                        {
+                            Id = 1003,
+                            FirstName = "Stefan",
+                            LastName = "Löfven",
+                            NameInitials = "SL"
+                        },
+                        new
+                        {
+                            Id = 1004,
+                            FirstName = "Magdalena",
+                            LastName = "Andersson",
+                            NameInitials = "MA"
+                        },
+                        new
+                        {
+                            Id = 1005,
+                            FirstName = "Ulf",
+                            LastName = "Kristersson",
+                            NameInitials = "UK"
+                        });
                 });
 
             modelBuilder.Entity("Case_Management_System.MVVM.Models.Entities.CaseEntity", b =>

@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="800">
+        Title="MainWindow" Height="900" Width="820">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -24,43 +24,45 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Button
                 Grid.Row="0"
-                Content="Add"
+                Content="Lägg till"
                 Cursor="Hand"
                 Background="#633448"
                 BorderThickness="0"
                 Padding="5"
                 Foreground="White"
                 FontWeight="DemiBold"
-                Margin="5 5 5 0" 
+                Margin="10 10 10 0" 
                 Command="{Binding GoToAddACaseCommand}"/>
 
             <Button
                 Grid.Row="1"
-                Content="List"
+                Content="Alla ärenden"
                 Cursor="Hand"
                 Background="#633448"
                 BorderThickness="0"
                 Padding="5"
                 Foreground="White"
                 FontWeight="DemiBold"
-                Margin="5 5 5 0" 
+                Margin="10 10 10 0" 
                 Command="{Binding GoToAllCasesListCommand}"/>
-            
+
             <Button
                 Grid.Row="2"
-                Content="Specific"
+                Content="Detaljerad info"
                 Cursor="Hand"
                 Background="#633448"
                 BorderThickness="0"
                 Padding="5"
                 Foreground="White"
                 FontWeight="DemiBold"
-                Margin="5 5 5 0" 
+                Margin="10 10 10 0" 
                 Command="{Binding GoToAddCommentCommand}"/>
+
         </Grid>
         
         <Grid
@@ -71,6 +73,9 @@
             <ContentControl Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
 
+                    <DataTemplate DataType="{x:Type viewmodels:FirstViewModel}">
+                        <views:FirstView />
+                    </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:AddACaseViewModel}">
                         <views:AddACaseView />
                     </DataTemplate>
@@ -79,6 +84,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:AddCommentViewModel}">
                         <views:AddCommentView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:EmptyDetailsViewModel}">
+                        <views:EmptyDetailsView />
                     </DataTemplate>
 
                 </ContentControl.Resources>

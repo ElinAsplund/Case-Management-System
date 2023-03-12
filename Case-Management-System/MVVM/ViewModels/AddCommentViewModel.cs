@@ -3,10 +3,7 @@ using Case_Management_System.MVVM.Models.Entities;
 using Case_Management_System.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Case_Management_System.MVVM.ViewModels;
@@ -81,7 +78,7 @@ public partial class AddCommentViewModel : ObservableObject
 
         Id = currentTask.Id;
         Description = currentTask.Description;
-        EntryTime = currentTask.EntryTime.ToString("dd/MM/yyyy HH:mm:ss");
+        EntryTime = currentTask.EntryTime.ToString("dd/MM/yyyy HH:mm");
 
         //Convert the enum to a string, in swedish:
         if (currentTask.Status == CaseStatus.NotStarted)
@@ -95,7 +92,7 @@ public partial class AddCommentViewModel : ObservableObject
         LastName = currentTask.CustomerLastName;
         Email = currentTask.CustomerEmail;
 
-        //Check if there is a phonenumber in the db and if there isn't any,
+        //Checks if there is a phonenumber in the db and if there isn't any,
         //sets it to a string-message for the frontend:
         if (currentTask.CustomerPhoneNumber == "             ")
             PhoneNumber = "Inget telefonnummer angivet.";
@@ -107,21 +104,23 @@ public partial class AddCommentViewModel : ObservableObject
     [RelayCommand]
     public async Task UpdateStatusAsync()
     {
-        if(SelectedStatus != "Välj en uppdaterad status:")
+        if (SelectedStatus == "Ej påbörjad")
+            CurrentTask.Status = CaseStatus.NotStarted;
+        else if (SelectedStatus == "Pågående")
+            CurrentTask.Status = CaseStatus.InProgress;
+        else if (SelectedStatus == "Avslutad")
+            CurrentTask.Status = CaseStatus.Completed;
+
+
+        if (SelectedStatus != "Välj en ny status:")
         {
-
-            if(SelectedStatus == "Ej påbörjad")
-                CurrentTask.Status = CaseStatus.NotStarted;
-            else if(SelectedStatus == "Pågående")
-                CurrentTask.Status = CaseStatus.InProgress;
-            else if(SelectedStatus == "Avslutad")
-                CurrentTask.Status = CaseStatus.Completed;
-
             await DatabaseService.ChangeStatusAsync(CurrentTask);
 
-            //FRONTEND!
+            //This updates the frontend's current status to the new status
             Status = SelectedStatus;
         }
+        else
+            SelectedStatus = "Välj en ny status:";
     }
 
     [RelayCommand]
@@ -133,7 +132,9 @@ public partial class AddCommentViewModel : ObservableObject
         };
 
         await DatabaseService.SaveCommentToDbAsync(_comment, CurrentTask.Id);
-
+        
+        CommentsList.Add(_comment);
         EnteredComment = "";
+        SelectedEmployee = EmployeesList[0];
     }
 }

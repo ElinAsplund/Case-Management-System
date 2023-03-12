@@ -20,7 +20,7 @@ public class EmployeeEntity
     [StringLength(50)]
     public string LastName { get; set; } = null!;
 
-    [Column(TypeName = "nvarchar(10)")]
+    [Column(TypeName = "nvarchar(20)")]
     public string NameInitials { get; set; } = null!;
 
 

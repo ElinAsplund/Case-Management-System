@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Case_Management_System.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class DataInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +36,7 @@ namespace Case_Management_System.Migrations
                         .Annotation("SqlServer:Identity", "1000, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    NameInitials = table.Column<string>(type: "nvarchar(10)", nullable: false)
+                    NameInitials = table.Column<string>(type: "nvarchar(20)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,6 +91,19 @@ namespace Case_Management_System.Migrations
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "FirstName", "LastName", "NameInitials" },
+                values: new object[,]
+                {
+                    { 1000, "Ingen är vald.", "", "Ingen signatur vald." },
+                    { 1001, "Göran", "Persson", "GP" },
+                    { 1002, "Fredrik", "Reinfeldt", "FR" },
+                    { 1003, "Stefan", "Löfven", "SL" },
+                    { 1004, "Magdalena", "Andersson", "MA" },
+                    { 1005, "Ulf", "Kristersson", "UK" }
                 });
 
             migrationBuilder.CreateIndex(

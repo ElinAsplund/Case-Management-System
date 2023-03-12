@@ -57,7 +57,7 @@
                     Height="100"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"
-                    VerticalScrollBarVisibility="Visible"
+                    VerticalScrollBarVisibility="Auto"
                     Text="{Binding Description}" />
 
 
@@ -68,7 +68,7 @@
                 Grid.Row="1"
                 Content="SPARA"
                 Cursor="Hand"
-                Background="#78b869"
+                Background="#2da97c"
                 BorderThickness="0"
                 Padding="5"
                 Foreground="White"
