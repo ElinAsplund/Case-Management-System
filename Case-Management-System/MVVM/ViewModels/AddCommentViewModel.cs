@@ -62,6 +62,7 @@ public partial class AddCommentViewModel : ObservableObject
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
         CommentsList = await DatabaseService.GetSpecificCommentsFromDbAsync(currentCase);
     }
+
     public async Task populateEmployeesList()
     {
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
@@ -95,7 +96,6 @@ public partial class AddCommentViewModel : ObservableObject
             PhoneNumber = "Inget telefonnummer angivet.";
         else
             PhoneNumber = _currentCase.CustomerPhoneNumber;
-
     }
 
     [RelayCommand]

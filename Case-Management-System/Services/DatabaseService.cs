@@ -6,12 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using Case_Management_System.MVVM.ViewModels;
 
 namespace Case_Management_System.Services;
 
 internal class DatabaseService
 {
-    private static DatabaseContext _context = new DatabaseContext();
+    public static DatabaseContext _context = new DatabaseContext();
 
     public static async Task SaveToDbAsync(Case newCase)
     {
@@ -133,4 +135,27 @@ internal class DatabaseService
         _context.Add(commentEntity);
         await _context.SaveChangesAsync();
     }
+    
+    //public static async Task RemoveCaseAsync(Case clickedCase)
+    //{
+    //    var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == clickedCase.Id);
+        
+    //    if(_dbCaseEntity != null)
+    //    {
+    //        var _allComments = new List<CommentEntity>();
+
+    //        foreach (var _comment in await _context.Comments.ToListAsync())
+    //        {
+    //            _allComments.Add(_comment);
+    //        };
+
+    //        foreach (var _associatedComment in _allComments.Where(x => x.CaseId == _dbCaseEntity.Id))
+    //        {
+    //            _context.Remove(_associatedComment);
+    //        }
+
+    //        _context.Remove(_dbCaseEntity);
+    //        await _context.SaveChangesAsync();
+    //    }
+    //}
 }

@@ -89,7 +89,7 @@
             Margin="0">
 
             <ListView 
-                ItemsSource="{Binding CaseList}" 
+                ItemsSource="{Binding CasesList}" 
                 BorderThickness="0"
                 HorizontalContentAlignment="Stretch" >
                 <ListView.ItemContainerStyle>
@@ -145,6 +145,8 @@
                                         Padding="5 0 5 0"
                                         Foreground="#554c4b"
                                         Text="{Binding Status}" />
+                                    <Button
+                                        Click="Btn_Remove_Click" >X</Button>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>

@@ -32,13 +32,14 @@ public class CaseEntity
 
     #region implicit operators
 
-    public static implicit operator CaseEntity(Case task)
+    public static implicit operator CaseEntity(Case _case)
     {
         return new CaseEntity
         {
-            Description = task.Description,
-            EntryTime = task.EntryTime,
-            Status = task.Status
+            Id = _case.Id,
+            Description = _case.Description,
+            EntryTime = _case.EntryTime,
+            Status = _case.Status
         };
     }
 

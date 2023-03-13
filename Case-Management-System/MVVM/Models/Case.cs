@@ -13,7 +13,6 @@ public class Case
 
     public DateTime EntryTime { get; set; } = DateTime.Now;
 
-    // SKA INTE VARA HÄR? UTAN I COMMENT???
     public CaseStatus Status { get; set; } = CaseStatus.NotStarted;
 
     public string CustomerFirstName { get; set; } = null!;
