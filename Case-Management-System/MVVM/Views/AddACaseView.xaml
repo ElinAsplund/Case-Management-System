@@ -7,7 +7,7 @@
              xmlns:viewmodels="clr-namespace:Case_Management_System.MVVM.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodels:AddACaseViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
     <Grid>
         <Grid
             Margin="0" 
@@ -15,47 +15,70 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <StackPanel 
                 Grid.Row="0"
                 Margin="30 0 30 0">
-                
-                <TextBlock Text="{Binding Title}" 
+
+                <TextBlock 
+                    Text="Lägg till ett nytt ärende" 
                     FontSize="16" 
                     Margin="0 20 0 10" 
                     FontWeight="DemiBold" 
-                    Foreground="#683b36"/>
+                    Foreground="#554c4b"/>
 
-                <TextBlock Text="Förnamn*"/>
+                <TextBlock 
+                    FontWeight="Bold"
+                    Margin="0 0 0 2"
+                    Foreground="#554c4b"
+                    Text="Förnamn:"/>
                 <TextBox
                     BorderThickness="0"
                     Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding FirstName}" />
 
-                <TextBlock Text="Efternamn*"/>
+                <TextBlock 
+                    FontWeight="Bold"
+                    Margin="0 0 0 2"
+                    Foreground="#554c4b"
+                    Text="Efternamn:"/>
                 <TextBox 
                     BorderThickness="0"
                     Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding LastName}" />
 
-                <TextBlock Text="Email*"/>
+                <TextBlock 
+                    FontWeight="Bold"
+                    Margin="0 0 0 2"
+                    Foreground="#554c4b"
+                    Text="Email:"/>
                 <TextBox 
                     BorderThickness="0"
                     Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding Email}"/>
 
-                <TextBlock Text="Telefonnummer"/>
+                <TextBlock 
+                    FontWeight="Bold"
+                    Margin="0 0 0 2"
+                    Foreground="#554c4b"
+                    Text="Telefonnummer:"/>
                 <TextBox 
                     BorderThickness="0"
                     Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding PhoneNumber}" />
 
-                <TextBlock Text="Beskrivning av ärende*"/>
+                <TextBlock 
+                    FontWeight="Bold"
+                    Margin="0 0 0 2"
+                    Foreground="#554c4b"
+                    Text="Beskrivning av ärende:"/>
                 <TextBox
                     BorderThickness="0"
                     Padding="5" 
@@ -64,24 +87,44 @@
                     TextWrapping="Wrap"
                     AcceptsReturn="True"
                     VerticalScrollBarVisibility="Auto"
-                    Text="{Binding Description}" />
-
-
+                    Text="{Binding EnteredDescription}" />
             </StackPanel>
+
+            <TextBlock 
+                Grid.Row="1"
+                Margin="30 5 0 0"
+                Foreground="#554c4b">
+                    <Run 
+                        FontWeight="Bold"
+                        Foreground="#554c4b"
+                        FontSize="14"
+                        Text="Tips!"/>
+                    <Run Text="Om du tidigare lagt till ett ärende, behöver du endast skriva in i fälten"/>
+                    <Run 
+                        FontWeight="Bold"
+                        Foreground="#554c4b"
+                        Text="&quot;Email&quot;"/>
+                    <Run Text="och"/>
+                    <Run 
+                        FontWeight="Bold"
+                        Foreground="#554c4b"
+                        Text="&quot;Beskrivning av ärende&quot;"/>
+                    <Run Text="."/>
+            </TextBlock>
+
+            <TextBlock 
+                Grid.Row="2"
+                Margin="65 0 0 5"
+                Foreground="#554c4b">
+                    <Run Text="För att spara ännu ett ärende."/>
+            </TextBlock>
 
             <Button
                 Command="{Binding SaveCommand}"
-                Grid.Row="1"
+                Grid.Row="3"
                 Content="SPARA"
-                Cursor="Hand"
-                Background="#2da97c"
-                BorderThickness="0"
-                Width="160"
-                Padding="5"
-                Foreground="White"
-                FontWeight="DemiBold"
-                HorizontalAlignment="Left"
-                Margin="30 10 30 20" />
+                Style="{StaticResource greenBtn}"/>
+
         </Grid>
     </Grid>
 </UserControl>

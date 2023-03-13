@@ -24,12 +24,12 @@
             FontSize="16" 
             Margin="0 20 0 0" 
             FontWeight="DemiBold" 
-            Foreground="#683b36"/>
+            Foreground="#554c4b"/>
 
         <TextBlock 
             Grid.Row="1"
             Margin="5 5 0 10" 
-            Foreground="#683b36">
+            Foreground="#554c4b">
                 <Run Text="För att se mer information om ett specifikt ärende, markera ärendet och tryck på knappen "/>
                 <Run 
                     FontWeight="Bold"
@@ -47,25 +47,37 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="115"/>
+                <ColumnDefinition Width="115"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock
                 Grid.Column="0"
-                Background="#faefed"
+                Background="#fff4f3"
+                Foreground="#554c4b"
                 Margin="5 10 0 5"
                 FontWeight="Bold"
                 Padding="10 5 5 5">Id</TextBlock>
             
             <TextBlock
                 Grid.Column="1"
-                Background="#faefed"
+                Background="#fff4f3"
+                Foreground="#554c4b"
                 Padding="0 5 0 5"
                 Margin="0 10 0 5"
                 FontWeight="Bold">Ärendebeskrivning</TextBlock>
             
             <TextBlock
                 Grid.Column="2"
-                Background="#faefed"
+                Background="#fff4f3"
+                Foreground="#554c4b"
+                Margin="0 10 0 5"
+                FontWeight="Bold"
+                Padding="0 5 10 5">Ärendeskapare</TextBlock>
+            
+            <TextBlock
+                Grid.Column="3"
+                Background="#fff4f3"
+                Foreground="#554c4b"
                 Margin="0 10 5 5"
                 FontWeight="Bold"
                 Padding="0 5 5 5">Status</TextBlock>
@@ -77,7 +89,7 @@
             Margin="0">
 
             <ListView 
-                ItemsSource="{Binding TaskList}" 
+                ItemsSource="{Binding CaseList}" 
                 BorderThickness="0"
                 HorizontalContentAlignment="Stretch" >
                 <ListView.ItemContainerStyle>
@@ -89,11 +101,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="models:Case">
                         <StackPanel Margin="0 5 0 5" 
-                                    Background="#faefed">
+                                    Background="#fff4f3">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="115"/>
                                     <ColumnDefinition Width="115"/>
                                 </Grid.ColumnDefinitions>
 
@@ -101,7 +114,9 @@
                                     Grid.Column="0"
                                     Margin="10 5 0 5">
                                     <TextBlock>
-                                        <Run Text="{Binding Id}"/>
+                                        <Run 
+                                            Foreground="#554c4b"
+                                            Text="{Binding Id}"/>
                                     </TextBlock>
                                 </StackPanel>
 
@@ -110,14 +125,25 @@
                                     Margin="0 5 0 5">
                                     <TextBlock 
                                         Padding="5 0 5 0"
+                                        Foreground="#554c4b"
                                         Text="{Binding Description}"/>
                                 </StackPanel>
+                                
+                                <StackPanel 
+                                    Grid.Column="2"
+                                    Margin="0 5 0 5">
+                                    <TextBlock 
+                                        Padding="5 0 5 0"
+                                        Foreground="#554c4b"
+                                        Text="{Binding CustomerFirstName}"/>
+                                </StackPanel>
 
-                                <StackPanel Grid.Column="2"
+                                <StackPanel Grid.Column="3"
                                         Orientation="Horizontal"
                                         Margin="0 5 5 5">
                                     <TextBlock
                                         Padding="5 0 5 0"
+                                        Foreground="#554c4b"
                                         Text="{Binding Status}" />
                                 </StackPanel>
                             </Grid>

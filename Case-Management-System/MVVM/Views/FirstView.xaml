@@ -18,11 +18,11 @@
                 FontSize="16" 
                 Margin="0 20 0 0" 
                 FontWeight="DemiBold" 
-                Foreground="#683b36"/>
+                Foreground="#554c4b"/>
 
             <TextBlock 
                 Margin="5 5 0 0" 
-                Foreground="#683b36">
+                Foreground="#554c4b">
                 <Run Text="Lägg till ett nytt ärende, på knappen "/>
                 <Run 
                     FontWeight="Bold"
@@ -32,7 +32,7 @@
             
             <TextBlock 
                 Margin="5 5 0 0" 
-                Foreground="#683b36">
+                Foreground="#554c4b">
                 <Run Text="Eller se alla ärenden upplistade, på knappen "/>
                 <Run 
                     FontWeight="Bold"

@@ -2,11 +2,10 @@
 using Case_Management_System.MVVM.Models.Entities;
 using Case_Management_System.MVVM.Models;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
-using System.Xml.Linq;
 using System.Linq;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Case_Management_System.Services;
 
@@ -14,15 +13,41 @@ internal class DatabaseService
 {
     private static DatabaseContext _context = new DatabaseContext();
 
-    public static async Task SaveToDbAsync(Case task)
+    public static async Task SaveToDbAsync(Case newCase)
     {
-        CustomerEntity customerEntity = task;
-        CaseEntity caseEntity = task;
+        CustomerEntity customerEntity = newCase;
+        CaseEntity caseEntity = newCase;
+        CustomerEntity _currentCustomer = null!;
 
-        _context.Add(customerEntity);
-        caseEntity.CustomerId = customerEntity.Id;
-        _context.Add(caseEntity);
-        await _context.SaveChangesAsync();
+        //Check if there is any customer in the db with the entered email already
+        var _allCustomers = await _context.Customers.ToListAsync();
+        var customerNotUniqueEmail = _allCustomers.Where(x => x.Email == customerEntity.Email);
+
+        foreach (var customer in customerNotUniqueEmail) {
+            _currentCustomer = new CustomerEntity()
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Email = customer.Email,
+                PhoneNumber = customer.PhoneNumber
+            };
+        }
+
+        if(customerNotUniqueEmail.IsNullOrEmpty()) 
+        {
+            _context.Add(customerEntity);
+            caseEntity.CustomerId = customerEntity.Id;
+            _context.Add(caseEntity);
+            await _context.SaveChangesAsync();            
+        }
+        else
+        {
+            //If email is not unique in the db, it sets the newCase to the customer with the matching email in db.
+            caseEntity.CustomerId = _currentCustomer.Id;
+            _context.Add(caseEntity);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public static async Task<ObservableCollection<Case>> GetAllFromDbAsync()
@@ -71,18 +96,18 @@ internal class DatabaseService
     }
 
 
-    public static async Task<ObservableCollection<Comment>> GetSpecificCommentsFromDbAsync(Case currentTask)
+    public static async Task<ObservableCollection<Comment>> GetSpecificCommentsFromDbAsync(Case currentCase)
     {
         var _allComments = new ObservableCollection<CommentEntity>();
         var _actualComments = new ObservableCollection<Comment>();
-        var currentTaskId = currentTask.Id;
+        var _currentCaseId = currentCase.Id;
 
         foreach (var _comment in await _context.Comments.ToListAsync())
         {
             _allComments.Add(_comment);
         };
 
-        foreach(var _actualComment in _allComments.Where(x => x.CaseId == currentTaskId))
+        foreach(var _actualComment in _allComments.Where(x => x.CaseId == _currentCaseId))
         {
             Comment _comment = _actualComment;
             _actualComments.Add(_comment);
@@ -91,11 +116,11 @@ internal class DatabaseService
         return _actualComments;
     }
 
-    public static async Task ChangeStatusAsync(Case task)
+    public static async Task ChangeStatusAsync(Case currentCase)
     {
-        var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == task.Id);
+        var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == currentCase.Id);
 
-        _dbCaseEntity!.Status = task.Status;
+        _dbCaseEntity!.Status = currentCase.Status;
 
         _context.Update(_dbCaseEntity);
         await _context.SaveChangesAsync();

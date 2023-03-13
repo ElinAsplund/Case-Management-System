@@ -11,40 +11,40 @@ namespace Case_Management_System.MVVM.ViewModels;
 public partial class AddCommentViewModel : ObservableObject
 {
     [ObservableProperty]
-    public Case currentTask = null!;
-
-    [ObservableProperty]
-    public int? id;
+    private int? id;
 
     [ObservableProperty]
     private string description = string.Empty;
 
     [ObservableProperty]
-    public string? entryTime;
+    private string? entryTime;
 
     [ObservableProperty]
-    public string status;
+    private string status;
 
     [ObservableProperty]
     private string firstName = string.Empty;
 
     [ObservableProperty]
-    public string lastName = string.Empty;
+    private string lastName = string.Empty;
 
     [ObservableProperty]
-    public string email = string.Empty;
+    private string email = string.Empty;
 
     [ObservableProperty]
-    public string? phoneNumber = string.Empty;
+    private string? phoneNumber = string.Empty;
 
     [ObservableProperty]
-    public string enteredComment = string.Empty;
+    private string enteredComment = string.Empty;
 
     [ObservableProperty]
-    public string selectedStatus = "Välj en ny status:";
+    private string selectedStatus = "Välj en ny status:";
 
     [ObservableProperty]
-    public Employee selectedEmployee = null!;
+    private Employee selectedEmployee = null!;
+
+    [ObservableProperty]
+    private Case _currentCase = null!;
 
     [ObservableProperty]
     private ObservableCollection<Employee> employeesList = null!;
@@ -57,47 +57,44 @@ public partial class AddCommentViewModel : ObservableObject
         Task.Run(async () => await populateEmployeesList());
     }
 
-    public async Task populateLists(Case currentTask)
+    public async Task populateLists(Case currentCase)
     {
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
-        CommentsList = await DatabaseService.GetSpecificCommentsFromDbAsync(currentTask);
+        CommentsList = await DatabaseService.GetSpecificCommentsFromDbAsync(currentCase);
     }
     public async Task populateEmployeesList()
     {
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
     }
 
-    public AddCommentViewModel(Case currentCase, ObservableCollection<Employee> employees)
+    public AddCommentViewModel(Case currentCase)
     {
+        Task.Run(async () => await populateLists(_currentCase));
 
-        employeesList = employees;
-        //Task.Run(async () => await populateEmployeesList());
-        Task.Run(async () => await populateLists(currentTask));
+        _currentCase = currentCase;
 
-        currentTask = currentCase;
-
-        Id = currentTask.Id;
-        Description = currentTask.Description;
-        EntryTime = currentTask.EntryTime.ToString("dd/MM/yyyy HH:mm");
+        Id = _currentCase.Id;
+        Description = _currentCase.Description;
+        EntryTime = _currentCase.EntryTime.ToString("dd/MM/yyyy HH:mm");
 
         //Convert the enum to a string, in swedish:
-        if (currentTask.Status == CaseStatus.NotStarted)
+        if (_currentCase.Status == CaseStatus.NotStarted)
             Status = "Ej påbörjad";
-        else if (currentTask.Status == CaseStatus.InProgress)
+        else if (_currentCase.Status == CaseStatus.InProgress)
             Status = "Pågående";
-        else if (currentTask.Status == CaseStatus.Completed)
+        else if (_currentCase.Status == CaseStatus.Completed)
             Status = "Avslutad";
        
-        FirstName = currentTask.CustomerFirstName;
-        LastName = currentTask.CustomerLastName;
-        Email = currentTask.CustomerEmail;
+        FirstName = _currentCase.CustomerFirstName;
+        LastName = _currentCase.CustomerLastName;
+        Email = _currentCase.CustomerEmail;
 
         //Checks if there is a phonenumber in the db and if there isn't any,
         //sets it to a string-message for the frontend:
-        if (currentTask.CustomerPhoneNumber == "             ")
+        if (_currentCase.CustomerPhoneNumber == "             ")
             PhoneNumber = "Inget telefonnummer angivet.";
         else
-            PhoneNumber = currentTask.CustomerPhoneNumber;
+            PhoneNumber = _currentCase.CustomerPhoneNumber;
 
     }
 
@@ -105,16 +102,16 @@ public partial class AddCommentViewModel : ObservableObject
     public async Task UpdateStatusAsync()
     {
         if (SelectedStatus == "Ej påbörjad")
-            CurrentTask.Status = CaseStatus.NotStarted;
+            _currentCase.Status = CaseStatus.NotStarted;
         else if (SelectedStatus == "Pågående")
-            CurrentTask.Status = CaseStatus.InProgress;
+            _currentCase.Status = CaseStatus.InProgress;
         else if (SelectedStatus == "Avslutad")
-            CurrentTask.Status = CaseStatus.Completed;
+            _currentCase.Status = CaseStatus.Completed;
 
 
         if (SelectedStatus != "Välj en ny status:")
         {
-            await DatabaseService.ChangeStatusAsync(CurrentTask);
+            await DatabaseService.ChangeStatusAsync(_currentCase);
 
             //This updates the frontend's current status to the new status
             Status = SelectedStatus;
@@ -131,8 +128,9 @@ public partial class AddCommentViewModel : ObservableObject
             SigningEmployee = SelectedEmployee
         };
 
-        await DatabaseService.SaveCommentToDbAsync(_comment, CurrentTask.Id);
+        await DatabaseService.SaveCommentToDbAsync(_comment, _currentCase.Id);
         
+        //Resetting and updating frontend
         CommentsList.Add(_comment);
         EnteredComment = "";
         SelectedEmployee = EmployeesList[0];

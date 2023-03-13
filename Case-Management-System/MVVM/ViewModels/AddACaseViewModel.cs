@@ -9,9 +9,6 @@ namespace Case_Management_System.MVVM.ViewModels;
 public partial class AddACaseViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string title = "Lägg till ett nytt ärende";
-
-    [ObservableProperty]
     private string firstName = string.Empty;
 
     [ObservableProperty]
@@ -24,7 +21,7 @@ public partial class AddACaseViewModel : ObservableObject
     private string phoneNumber = string.Empty;
 
     [ObservableProperty]
-    private string description = string.Empty;
+    private string enteredDescription = string.Empty;
 
     private void ClearForm()
     {
@@ -32,24 +29,27 @@ public partial class AddACaseViewModel : ObservableObject
         LastName = string.Empty;
         Email = string.Empty;
         PhoneNumber = string.Empty;
-        Description = string.Empty;
+        EnteredDescription = string.Empty;
     }
 
     [RelayCommand]
     public async Task SaveAsync()
     {
-        var task = new Case
-        {
-            Description = Description,
-            CustomerFirstName = FirstName,
-            CustomerLastName = LastName,
-            CustomerEmail = Email,
-            CustomerPhoneNumber = PhoneNumber
-        };
+        //Checking that the entered case is not empty
+        if(EnteredDescription!="" && Email!="") 
+        { 
+            var newCase = new Case
+            {
+                Description = EnteredDescription,
+                CustomerFirstName = FirstName,
+                CustomerLastName = LastName,
+                CustomerEmail = Email,
+                CustomerPhoneNumber = PhoneNumber
+            };
 
-        await DatabaseService.SaveToDbAsync(task);
+            await DatabaseService.SaveToDbAsync(newCase);
 
-        ClearForm();
+            ClearForm();
+        }
     }
-
 }

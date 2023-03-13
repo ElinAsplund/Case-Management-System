@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="820">
+        Title="MainWindow" Height="900" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -19,7 +19,7 @@
         <Grid 
             Grid.Column="0"
             Margin="0" 
-            Background="#c2847a">
+            Background="#887a78">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -30,37 +30,19 @@
             <Button
                 Grid.Row="0"
                 Content="Lägg till"
-                Cursor="Hand"
-                Background="#633448"
-                BorderThickness="0"
-                Padding="5"
-                Foreground="White"
-                FontWeight="DemiBold"
-                Margin="10 10 10 0" 
+                Style="{StaticResource menuBtn}"
                 Command="{Binding GoToAddACaseCommand}"/>
 
             <Button
                 Grid.Row="1"
                 Content="Alla ärenden"
-                Cursor="Hand"
-                Background="#633448"
-                BorderThickness="0"
-                Padding="5"
-                Foreground="White"
-                FontWeight="DemiBold"
-                Margin="10 10 10 0" 
+                Style="{StaticResource menuBtn}"
                 Command="{Binding GoToAllCasesListCommand}"/>
 
             <Button
                 Grid.Row="2"
                 Content="Detaljerad info"
-                Cursor="Hand"
-                Background="#633448"
-                BorderThickness="0"
-                Padding="5"
-                Foreground="White"
-                FontWeight="DemiBold"
-                Margin="10 10 10 0" 
+                Style="{StaticResource menuBtn}"
                 Command="{Binding GoToAddCommentCommand}"/>
 
         </Grid>
