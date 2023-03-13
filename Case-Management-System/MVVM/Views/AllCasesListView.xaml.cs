@@ -28,6 +28,9 @@ namespace Case_Management_System.MVVM.Views
 
         private void Btn_Remove_Click(object sender, RoutedEventArgs e)
         {
+            //I have trouble with the ListView not updating correctly when removing a case, frontend.
+            //This is the best way I can do with my current knowledge. 
+
             var button = sender as Button;
             var _clickedCase = button!.DataContext as Case;
 
@@ -36,12 +39,8 @@ namespace Case_Management_System.MVVM.Views
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-
                 Task.Run(async() => await DatabaseService.RemoveCaseAsync(_clickedCase));
                 clickedCase = null!;
-
-                //I have trouble with the ListView not updating correctly when removing a case, frontend.
-                //This is the best way I can do with my current knowledge. 
             }
         }
     }
