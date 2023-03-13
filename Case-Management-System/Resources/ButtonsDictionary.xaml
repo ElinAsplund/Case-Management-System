@@ -74,4 +74,44 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="removeBtn" 
+           TargetType="{x:Type Button}">
+        <Setter Property="Cursor" 
+                Value="Hand" />
+        <Setter Property="Background" 
+                Value="#C3381C" />
+        <Setter Property="Foreground" 
+                Value="White" />
+        <Setter Property="BorderThickness" 
+                Value="0" />
+        <Setter Property="FontWeight" 
+                Value="DemiBold" />
+        <Setter Property="Margin" 
+                Value="15 0 0 0" />
+        <Setter Property="Height" 
+                Value="20" />
+        <Setter Property="Width" 
+                Value="20" />
+        <Setter Property="HorizontalAlignment" 
+                Value="Center" />
+        <Setter Property="VerticalAlignment" 
+                Value="Center" />        
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#621c0e"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

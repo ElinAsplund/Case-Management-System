@@ -1,7 +1,5 @@
 ﻿using Case_Management_System.MVVM.Models;
-using Case_Management_System.MVVM.ViewModels;
 using Case_Management_System.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,10 +37,11 @@ namespace Case_Management_System.MVVM.Views
                 MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
 
-                Task.Run(async() => await AllCasesListViewModel.RemoveCaseAsync(_clickedCase));
+                Task.Run(async() => await DatabaseService.RemoveCaseAsync(_clickedCase));
                 clickedCase = null!;
 
-                //I have trouble with ListView not updating when removing case, frontend.
+                //I have trouble with the ListView not updating correctly when removing a case, frontend.
+                //This is the best way I can do with my current knowledge. 
             }
         }
     }

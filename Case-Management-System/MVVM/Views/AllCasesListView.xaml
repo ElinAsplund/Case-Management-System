@@ -138,15 +138,19 @@
                                         Text="{Binding CustomerFirstName}"/>
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="3"
-                                        Orientation="Horizontal"
-                                        Margin="0 5 5 5">
+                                <StackPanel 
+                                    Grid.Column="3"
+                                    Orientation="Horizontal"
+                                    Margin="0 5 5 5">
+                                    
                                     <TextBlock
                                         Padding="5 0 5 0"
                                         Foreground="#554c4b"
                                         Text="{Binding Status}" />
                                     <Button
-                                        Click="Btn_Remove_Click" >X</Button>
+                                        Click="Btn_Remove_Click"
+                                        Content="X"
+                                        Style="{StaticResource removeBtn}"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>

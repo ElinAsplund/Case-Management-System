@@ -56,23 +56,23 @@
                     FontWeight="Bold"
                     Margin="0 0 0 2"
                     Foreground="#554c4b"
-                    Text="Email:"/>
-                <TextBox 
-                    BorderThickness="0"
-                    Padding="5" 
-                    Margin="0 0 0 10" 
-                    Text="{Binding Email}"/>
-
-                <TextBlock 
-                    FontWeight="Bold"
-                    Margin="0 0 0 2"
-                    Foreground="#554c4b"
                     Text="Telefonnummer:"/>
                 <TextBox 
                     BorderThickness="0"
                     Padding="5" 
                     Margin="0 0 0 10" 
                     Text="{Binding PhoneNumber}" />
+
+                <TextBlock 
+                    FontWeight="Bold"
+                    Margin="0 0 0 2"
+                    Foreground="#554c4b"
+                    Text="Email:"/>
+                <TextBox 
+                    BorderThickness="0"
+                    Padding="5" 
+                    Margin="0 0 0 10" 
+                    Text="{Binding Email}"/>
 
                 <TextBlock 
                     FontWeight="Bold"

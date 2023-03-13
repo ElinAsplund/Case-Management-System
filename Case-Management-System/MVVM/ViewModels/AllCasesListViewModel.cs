@@ -25,32 +25,4 @@ public partial class AllCasesListViewModel : ObservableObject
     {
         Task.Run(async () => await populateCaseList());
     }
-
-    public async static Task RemoveCaseAsync(Case clickedCase)
-    {
-
-        var _databaseServiceContext = DatabaseService._context;
-
-        var _dbCaseEntity = await _databaseServiceContext.Cases.FirstOrDefaultAsync(x => x.Id == clickedCase.Id);
-
-        if (_dbCaseEntity != null)
-        {
-            var _allComments = new List<CommentEntity>();
-
-            foreach (var _comment in await _databaseServiceContext.Comments.ToListAsync())
-            {
-                _allComments.Add(_comment);
-            };
-
-            foreach (var _associatedComment in _allComments.Where(x => x.CaseId == _dbCaseEntity.Id))
-            {
-                _databaseServiceContext.Remove(_associatedComment);
-            }
-
-            _databaseServiceContext.Remove(_dbCaseEntity);
-            await _databaseServiceContext.SaveChangesAsync();
-            
-            //CasesList.Remove(clickedCase);
-        }
-    }
 }

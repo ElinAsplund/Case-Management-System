@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
-using System.Runtime.Serialization;
 
 namespace Case_Management_System.MVVM.Models.Entities;
 
@@ -20,7 +19,6 @@ public class CaseEntity
     [EnumDataType(typeof(CaseStatus))]
     [Column(TypeName = "nvarchar(20)")]
     public CaseStatus Status { get; set; }
-
 
     [Required]
     public Guid CustomerId { get; set; }

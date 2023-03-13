@@ -1,4 +1,6 @@
-﻿SELECT * FROM Customers
+﻿--SOME BASIC SQL FOR TESTING THE DB--
+
+SELECT * FROM Customers
 SELECT * FROM Cases
 
 SELECT 

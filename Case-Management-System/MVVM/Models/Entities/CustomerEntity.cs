@@ -27,6 +27,7 @@ public class CustomerEntity
 
     public ICollection<CaseEntity> Cases = new HashSet<CaseEntity>();
 
+
     #region implicit operators
 
     //Takes a Customer and makes a CustomerEntity

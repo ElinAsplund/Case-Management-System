@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
-using Case_Management_System.MVVM.ViewModels;
 
 namespace Case_Management_System.Services;
 
@@ -21,7 +20,7 @@ internal class DatabaseService
         CaseEntity caseEntity = newCase;
         CustomerEntity _currentCustomer = null!;
 
-        //Check if there is any customer in the db with the entered email already
+        //Checks if there is any customer in the db with the entered email already
         var _allCustomers = await _context.Customers.ToListAsync();
         var customerNotUniqueEmail = _allCustomers.Where(x => x.Email == customerEntity.Email);
 
@@ -135,27 +134,27 @@ internal class DatabaseService
         _context.Add(commentEntity);
         await _context.SaveChangesAsync();
     }
-    
-    //public static async Task RemoveCaseAsync(Case clickedCase)
-    //{
-    //    var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == clickedCase.Id);
-        
-    //    if(_dbCaseEntity != null)
-    //    {
-    //        var _allComments = new List<CommentEntity>();
 
-    //        foreach (var _comment in await _context.Comments.ToListAsync())
-    //        {
-    //            _allComments.Add(_comment);
-    //        };
+    public static async Task RemoveCaseAsync(Case clickedCase)
+    {
+        var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == clickedCase.Id);
 
-    //        foreach (var _associatedComment in _allComments.Where(x => x.CaseId == _dbCaseEntity.Id))
-    //        {
-    //            _context.Remove(_associatedComment);
-    //        }
+        if (_dbCaseEntity != null)
+        {
+            var _allComments = new List<CommentEntity>();
 
-    //        _context.Remove(_dbCaseEntity);
-    //        await _context.SaveChangesAsync();
-    //    }
-    //}
+            foreach (var _comment in await _context.Comments.ToListAsync())
+            {
+                _allComments.Add(_comment);
+            };
+
+            foreach (var _associatedComment in _allComments.Where(x => x.CaseId == _dbCaseEntity.Id))
+            {
+                _context.Remove(_associatedComment);
+            }
+
+            _context.Remove(_dbCaseEntity);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
