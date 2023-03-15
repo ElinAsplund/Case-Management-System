@@ -21,58 +21,6 @@ internal class DatabaseContext : DbContext
 
     #endregion
 
-    #region start employees
-
-    EmployeeEntity employeeFirst = new EmployeeEntity
-    {
-        Id = 1000,
-        FirstName = "Ingen är vald.",
-        LastName = "",
-        NameInitials = "Ingen signatur vald."
-    };
-
-    EmployeeEntity employeeSecond = new EmployeeEntity
-    {
-        Id = 1001,
-        FirstName = "Göran",
-        LastName = "Persson",
-        NameInitials = "GP"
-    };    
-
-    EmployeeEntity employeeThird = new EmployeeEntity
-    {
-        Id = 1002,
-        FirstName = "Fredrik",
-        LastName = "Reinfeldt",
-        NameInitials = "FR"
-    };  
-    
-    EmployeeEntity employeeFourth = new EmployeeEntity
-    {
-        Id = 1003,
-        FirstName = "Stefan",
-        LastName = "Löfven",
-        NameInitials = "SL"
-    };
-    
-    EmployeeEntity employeeFifth = new EmployeeEntity
-    {
-        Id = 1004,
-        FirstName = "Magdalena",
-        LastName = "Andersson",
-        NameInitials = "MA"
-    };
-
-    EmployeeEntity employeeSixth = new EmployeeEntity
-    {
-        Id = 1005,
-        FirstName = "Ulf",
-        LastName = "Kristersson",
-        NameInitials = "UK"
-    };
-
-    #endregion
-
     #region overrides
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -94,9 +42,6 @@ internal class DatabaseContext : DbContext
             new { Id = 1003, FirstName = "Stefan", LastName = "Löfven", NameInitials = "SL" },
             new { Id = 1004, FirstName = "Magdalena", LastName = "Andersson", NameInitials = "MA" },
             new { Id = 1005, FirstName = "Ulf", LastName = "Kristersson", NameInitials = "UK" });
-
-
-        //modelBuilder.Entity<EmployeeEntity>().HasData(employeeFirst, employeeSecond, employeeThird, employeeFourth, employeeFifth, employeeSixth);
     }
     #endregion
 
