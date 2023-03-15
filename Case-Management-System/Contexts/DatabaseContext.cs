@@ -87,12 +87,16 @@ internal class DatabaseContext : DbContext
             .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
             .HasAnnotation("SqlServer:IdentitySeed", 1000);
 
-        modelBuilder.Entity<EmployeeEntity>().HasData(employeeFirst);
-        modelBuilder.Entity<EmployeeEntity>().HasData(employeeSecond);
-        modelBuilder.Entity<EmployeeEntity>().HasData(employeeThird);
-        modelBuilder.Entity<EmployeeEntity>().HasData(employeeFourth);
-        modelBuilder.Entity<EmployeeEntity>().HasData(employeeFifth);
-        modelBuilder.Entity<EmployeeEntity>().HasData(employeeSixth);
+        modelBuilder.Entity<EmployeeEntity>().HasData(
+            new { Id = 1000, FirstName = "Ingen är vald.", LastName = "", NameInitials = "Ingen signatur vald." },
+            new { Id = 1001, FirstName = "Göran", LastName = "Persson", NameInitials = "GP" },
+            new { Id = 1002, FirstName = "Fredrik", LastName = "Reinfeldt", NameInitials = "FR" },
+            new { Id = 1003, FirstName = "Stefan", LastName = "Löfven", NameInitials = "SL" },
+            new { Id = 1004, FirstName = "Magdalena", LastName = "Andersson", NameInitials = "MA" },
+            new { Id = 1005, FirstName = "Ulf", LastName = "Kristersson", NameInitials = "UK" });
+
+
+        //modelBuilder.Entity<EmployeeEntity>().HasData(employeeFirst, employeeSecond, employeeThird, employeeFourth, employeeFifth, employeeSixth);
     }
     #endregion
 

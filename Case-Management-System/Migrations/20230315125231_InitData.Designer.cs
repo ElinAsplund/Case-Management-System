@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Case_Management_System.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230310165635_DataInit")]
-    partial class DataInit
+    [Migration("20230315125231_InitData")]
+    partial class InitData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
