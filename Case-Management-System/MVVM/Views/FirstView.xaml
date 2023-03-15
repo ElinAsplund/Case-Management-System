@@ -23,21 +23,25 @@
             <TextBlock 
                 Margin="5 5 0 0" 
                 Foreground="#554c4b">
-                <Run Text="Lägg till ett nytt ärende, på knappen "/>
+                <Run 
+                    Text="Lägg till ett nytt ärende, på knappen "/>
                 <Run 
                     FontWeight="Bold"
                     Text="&quot;Lägg till&quot;"/>
-                <Run Text="."/>
+                <Run 
+                    Text="."/>
             </TextBlock>
             
             <TextBlock 
                 Margin="5 5 0 0" 
                 Foreground="#554c4b">
-                <Run Text="Eller se alla ärenden upplistade, på knappen "/>
+                <Run 
+                    Text="Eller se alla ärenden upplistade, på knappen "/>
                 <Run 
                     FontWeight="Bold"
                     Text="&quot;Alla ärenden&quot;"/>
-                <Run Text="."/>
+                <Run 
+                    Text="."/>
             </TextBlock>
         </StackPanel>
     </Grid>

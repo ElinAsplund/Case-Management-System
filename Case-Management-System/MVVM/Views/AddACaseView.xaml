@@ -12,6 +12,7 @@
         <Grid
             Margin="0" 
             Background="MistyRose">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -94,30 +95,33 @@
                 Grid.Row="1"
                 Margin="30 5 0 0"
                 Foreground="#554c4b">
+                
                     <Run 
                         FontWeight="Bold"
                         Foreground="#554c4b"
                         FontSize="14"
                         Text="Tips!"/>
-                    <Run Text="Om du tidigare lagt till ett ärende, behöver du endast skriva in i fälten"/>
+                    <Run 
+                        Text="Om du tidigare lagt till ett ärende, behöver du endast skriva in i fälten"/>
                     <Run 
                         FontWeight="Bold"
                         Foreground="#554c4b"
                         Text="&quot;Email&quot;"/>
-                    <Run Text="och"/>
+                    <Run 
+                        Text="och"/>
                     <Run 
                         FontWeight="Bold"
                         Foreground="#554c4b"
                         Text="&quot;Beskrivning av ärende&quot;"/>
-                    <Run Text="."/>
+                    <Run 
+                        Text="."/>
             </TextBlock>
 
             <TextBlock 
                 Grid.Row="2"
                 Margin="65 0 0 5"
-                Foreground="#554c4b">
-                    <Run Text="För att spara ännu ett ärende."/>
-            </TextBlock>
+                Text="För att spara ännu ett ärende."
+                Foreground="#554c4b"/>
 
             <Button
                 Command="{Binding SaveCommand}"

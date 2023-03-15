@@ -35,7 +35,7 @@ public partial class AddACaseViewModel : ObservableObject
     [RelayCommand]
     public async Task SaveAsync()
     {
-        //Checking that the entered case is not empty
+        //Checking that the entered case is not empty:
         if(EnteredDescription!="" && Email!="") 
         { 
             var newCase = new Case

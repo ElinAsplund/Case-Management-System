@@ -51,6 +51,7 @@
                 BorderThickness="10"
                 CornerRadius="2"
                 BorderBrush="#fff4f3">
+                
                 <Grid
                     Background="#fff4f3">
                     <Grid.ColumnDefinitions>
@@ -89,6 +90,7 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         Foreground="#554c4b">
+                        
                         <Run Text="{Binding FirstName}"/>
                         <Run Text="{Binding LastName}"/>
                     </TextBlock>
@@ -112,19 +114,22 @@
                 Grid.Column="0"
                 Margin="10 0 0 0"
                 VerticalAlignment="Bottom">
+                
                 <TextBlock
                     Foreground="#554c4b">
-                        <Run FontWeight="Bold" 
-                             Text="ÄrendeId:"/>
-                        <Run Text="{Binding Id}"/>
+                    
+                    <Run FontWeight="Bold" 
+                            Text="ÄrendeId:"/>
+                    <Run Text="{Binding Id}"/>
                 </TextBlock>
 
                 <TextBlock
                     Foreground="#554c4b">
-                        <Run
-                            FontWeight="Bold" 
-                            Text="Skapades:"/>
-                        <Run Text="{Binding EntryTime}"/>
+                    
+                    <Run
+                        FontWeight="Bold" 
+                        Text="Skapades:"/>
+                    <Run Text="{Binding EntryTime}"/>
                 </TextBlock>
             </StackPanel>
         </Grid>
@@ -148,26 +153,27 @@
                 Foreground="#554c4b"
                 Text="{Binding Description}"/>
         </Border>
-        
+
         <TextBlock
             Grid.Row="4"
             FontWeight="Bold"
             Foreground="#554c4b"
-            Margin="10 20 0 5">
-                <Run Text="Kommentar(er):"/>
-        </TextBlock>
+            Margin="10 20 0 5"
+            Text="Kommentar(er):"/>
 
         <Border
             Grid.Row="5"
             BorderBrush="White"
             CornerRadius="2"
             BorderThickness="5 10">
+            
             <ListBox 
                 MinHeight="25"
                 MaxHeight="150"
                 BorderThickness="0"
                 HorizontalContentAlignment="Stretch"
                 ItemsSource="{Binding CommentsList}">
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid
@@ -254,6 +260,7 @@
             Margin="0 30 0 0"
             BorderThickness="0,0.5,0,0" 
             BorderBrush="#554c4b">
+            
             <TextBlock 
                 Text="Ändra status:" 
                 FontSize="16" 
@@ -271,6 +278,7 @@
             HorizontalAlignment="Left"
             SelectedValuePath="Content"
             SelectedValue="{Binding SelectedStatus, Mode=TwoWay}">
+            
                 <ComboBoxItem Content="Välj en ny status:"/>
                 <ComboBoxItem Content="Ej påbörjad"/>
                 <ComboBoxItem Content="Pågående"/>
@@ -289,12 +297,13 @@
             Margin="0 30 0 0"
             BorderThickness="0,0.5,0,0" 
             BorderBrush="#554c4b">
-                <TextBlock 
-                    Margin="0 10 0 10"
-                    Text="Lägg till en kommentar:"
-                    FontSize="16" 
-                    FontWeight="DemiBold" 
-                    Foreground="#554c4b"/>
+            
+            <TextBlock 
+                Margin="0 10 0 10"
+                Text="Lägg till en kommentar:"
+                FontSize="16" 
+                FontWeight="DemiBold" 
+                Foreground="#554c4b"/>
         </Border>
 
         <TextBox
@@ -312,11 +321,9 @@
         <TextBlock
             Grid.Row="13"
             Foreground="#554c4b"
-            Margin="10 10 0 5">
-                <Run
-                    FontWeight="Bold"
-                    Text="Signerat:"/>
-        </TextBlock>
+            FontWeight="Bold"
+            Text="Signerat:"
+            Margin="10 10 0 5"/>
 
         <ComboBox 
             Grid.Row="14"
@@ -328,8 +335,10 @@
             SelectedValue="{Binding SelectedEmployee}"
             ItemsSource="{Binding EmployeesList}"
             SelectedIndex="0">
+            
             <ComboBox.ItemTemplate>
                 <DataTemplate>
+                    
                     <TextBlock 
                         Foreground="#554c4b"
                         Text="{Binding NameInitials}" />

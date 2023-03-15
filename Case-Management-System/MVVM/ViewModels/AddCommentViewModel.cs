@@ -57,10 +57,10 @@ public partial class AddCommentViewModel : ObservableObject
         Task.Run(async () => await populateEmployeesList());
     }
 
-    public async Task populateLists(Case currentCase)
+    public async Task populateLists(Case clickedCase)
     {
         EmployeesList = await DatabaseService.GetAllEmployeesAsync();
-        CommentsList = await DatabaseService.GetSpecificCommentsFromDbAsync(currentCase);
+        CommentsList = await DatabaseService.GetSpecificCommentsFromDbAsync(clickedCase);
     }
 
     public async Task populateEmployeesList()
@@ -101,6 +101,7 @@ public partial class AddCommentViewModel : ObservableObject
     [RelayCommand]
     public async Task UpdateStatusAsync()
     {
+        //Converts the SelectedStatus to the correct enum:
         if (SelectedStatus == "Ej påbörjad")
             _currentCase.Status = CaseStatus.NotStarted;
         else if (SelectedStatus == "Pågående")
@@ -109,11 +110,12 @@ public partial class AddCommentViewModel : ObservableObject
             _currentCase.Status = CaseStatus.Completed;
 
 
+        //Check's if a new status is selected:
         if (SelectedStatus != "Välj en ny status:")
         {
             await DatabaseService.ChangeStatusAsync(_currentCase);
 
-            //This updates the frontend's current status to the new status
+            //This updates the frontend's status to the new updated status:
             Status = SelectedStatus;
         }
         else
@@ -123,16 +125,20 @@ public partial class AddCommentViewModel : ObservableObject
     [RelayCommand]
     public async Task AddCommentAsync()
     {
-        Comment _comment = new Comment {
-            CommentString = EnteredComment,
-            SigningEmployee = SelectedEmployee
-        };
-
-        await DatabaseService.SaveCommentToDbAsync(_comment, _currentCase.Id);
+        //Checks if there is any enteredComment or selectedEmployee present:
+        if (EnteredComment != "" && SelectedEmployee.Id != 1000)
+        {
+            var _comment = new Comment {
+                CommentString = EnteredComment,
+                SigningEmployee = SelectedEmployee
+            };
         
-        //Resetting and updating frontend
-        CommentsList.Add(_comment);
-        EnteredComment = "";
-        SelectedEmployee = EmployeesList[0];
+            await DatabaseService.SaveCommentToDbAsync(_comment, _currentCase.Id);
+            CommentsList.Add(_comment);
+
+            //Resetting and updating frontend:
+            EnteredComment = "";
+            SelectedEmployee = EmployeesList[0];
+        }
     }
 }

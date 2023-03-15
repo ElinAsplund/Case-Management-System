@@ -23,11 +23,13 @@
             <TextBlock 
                 Margin="5 5 0 10" 
                 Foreground="#554c4b">
-                <Run Text="Markera ärendet du vill veta mer om, i ärendelistan, som du hittar när du trycker på knappen "/>
+                <Run 
+                    Text="Markera ärendet du vill veta mer om, i ärendelistan, som du hittar när du trycker på knappen "/>
                 <Run 
                     FontWeight="Bold"
                     Text="&quot;Alla ärenden&quot;"/>
-                <Run Text="!"/>
+                <Run 
+                    Text="!"/>
             </TextBlock>
         </StackPanel>
     </Grid>

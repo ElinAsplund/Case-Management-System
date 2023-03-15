@@ -15,7 +15,7 @@ public partial class MainViewModel : ObservableObject
         CurrentViewModel = new FirstViewModel();
     }
     
-    //Navigation commands
+    //Navigation commands:
     [RelayCommand]
     public void GoToAllCasesList()
     {

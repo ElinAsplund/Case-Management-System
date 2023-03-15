@@ -30,11 +30,14 @@
             Grid.Row="1"
             Margin="5 5 0 10" 
             Foreground="#554c4b">
-                <Run Text="För att se mer information om ett specifikt ärende, markera ärendet och tryck på knappen "/>
-                <Run 
-                    FontWeight="Bold"
-                    Text="&quot;Detaljerad info&quot;"/>
-                <Run Text="!"/>
+                
+            <Run 
+                Text="För att se mer information om ett specifikt ärende, markera ärendet och tryck på knappen "/>
+            <Run 
+                FontWeight="Bold"
+                Text="&quot;Detaljerad info&quot;"/>
+            <Run 
+                Text="!"/>
         </TextBlock>
 
         <Grid 
@@ -43,6 +46,7 @@
             HorizontalAlignment="Stretch"
             Background="White"
             Height="43">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
@@ -94,7 +98,8 @@
                 HorizontalContentAlignment="Stretch" >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <EventSetter Event="PreviewMouseDown" Handler="ClickedListViewItem"/>
+                        <EventSetter Event="PreviewMouseDown" 
+                                     Handler="ClickedListViewItem"/>
                     </Style>
                 </ListView.ItemContainerStyle>
 
@@ -113,16 +118,16 @@
                                 <StackPanel 
                                     Grid.Column="0"
                                     Margin="10 5 0 5">
-                                    <TextBlock>
-                                        <Run 
-                                            Foreground="#554c4b"
-                                            Text="{Binding Id}"/>
-                                    </TextBlock>
+
+                                    <TextBlock
+                                        Foreground="#554c4b"
+                                        Text="{Binding Id}"/>
                                 </StackPanel>
 
                                 <StackPanel 
                                     Grid.Column="1"
                                     Margin="0 5 0 5">
+                                    
                                     <TextBlock 
                                         Padding="5 0 5 0"
                                         Foreground="#554c4b"
@@ -132,6 +137,7 @@
                                 <StackPanel 
                                     Grid.Column="2"
                                     Margin="0 5 0 5">
+                                    
                                     <TextBlock 
                                         Padding="5 0 5 0"
                                         Foreground="#554c4b"
@@ -147,6 +153,7 @@
                                         Padding="5 0 5 0"
                                         Foreground="#554c4b"
                                         Text="{Binding Status}" />
+                                    
                                     <Button
                                         Click="Btn_Remove_Click"
                                         Content="X"

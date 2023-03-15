@@ -16,37 +16,39 @@ internal class DatabaseService
 
     public static async Task SaveToDbAsync(Case newCase)
     {
-        CustomerEntity customerEntity = newCase;
-        CaseEntity caseEntity = newCase;
-        CustomerEntity _currentCustomer = null!;
+        CustomerEntity _customerEntity = newCase;
+        CaseEntity _caseEntity = newCase;
+        CustomerEntity _foundCustomer = null!;
 
-        //Checks if there is any customer in the db with the entered email already
-        var _allCustomers = await _context.Customers.ToListAsync();
-        var customerNotUniqueEmail = _allCustomers.Where(x => x.Email == customerEntity.Email);
+        //Checks if a customer with the entered email exists in the db:
+        var _allCustomersInDb = await _context.Customers.ToListAsync();
+        var _customerEmailFound = _allCustomersInDb.Where(x => x.Email == _customerEntity.Email);
 
-        foreach (var customer in customerNotUniqueEmail) {
-            _currentCustomer = new CustomerEntity()
+        //Mapping up the _foundCustomer:
+        foreach (var _customer in _customerEmailFound) {
+            _foundCustomer = new CustomerEntity()
             {
-                Id = customer.Id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                Email = customer.Email,
-                PhoneNumber = customer.PhoneNumber
+                Id = _customer.Id,
+                FirstName = _customer.FirstName,
+                LastName = _customer.LastName,
+                Email = _customer.Email,
+                PhoneNumber = _customer.PhoneNumber
             };
         }
 
-        if(customerNotUniqueEmail.IsNullOrEmpty()) 
+        //If no customer is found in the db with the entered email, adds the new customer:
+        if(_customerEmailFound.IsNullOrEmpty()) 
         {
-            _context.Add(customerEntity);
-            caseEntity.CustomerId = customerEntity.Id;
-            _context.Add(caseEntity);
+            _context.Add(_customerEntity);
+            _caseEntity.CustomerId = _customerEntity.Id;
+            _context.Add(_caseEntity);
             await _context.SaveChangesAsync();            
         }
         else
         {
-            //If email is not unique in the db, it sets the newCase to the customer with the matching email in db.
-            caseEntity.CustomerId = _currentCustomer.Id;
-            _context.Add(caseEntity);
+            //If email is found in the db, it sets the newCase to the foundCustomer with the matching email in db:
+            _caseEntity.CustomerId = _foundCustomer.Id;
+            _context.Add(_caseEntity);
             await _context.SaveChangesAsync();
         }
     }
@@ -60,6 +62,7 @@ internal class DatabaseService
             CustomerEntity customerEntity = _case.Customer;
             CaseEntity caseEntity = _case;
 
+            //Mapping of the db entities (customer and case) to the a case model:
             _cases.Add(new Case
             {
                 Id = caseEntity.Id,
@@ -84,6 +87,7 @@ internal class DatabaseService
         {
             EmployeeEntity employeeEntity = _employee;
 
+            //Mapping of the db entity (employee) to the a employee model:
             _employees.Add(new Employee
             {
                 Id = employeeEntity.Id,
@@ -100,60 +104,66 @@ internal class DatabaseService
     public static async Task<ObservableCollection<Comment>> GetSpecificCommentsFromDbAsync(Case currentCase)
     {
         var _allComments = new ObservableCollection<CommentEntity>();
-        var _actualComments = new ObservableCollection<Comment>();
-        var _currentCaseId = currentCase.Id;
+        var _speficicComments = new ObservableCollection<Comment>();
 
         foreach (var _comment in await _context.Comments.ToListAsync())
         {
             _allComments.Add(_comment);
         };
 
-        foreach(var _actualComment in _allComments.Where(x => x.CaseId == _currentCaseId))
+        foreach(var _comment in _allComments.Where(x => x.CaseId == currentCase.Id))
         {
-            Comment _comment = _actualComment;
-            _actualComments.Add(_comment);
+            //Casting from CommentEntity to Comment:
+            Comment _speficicComment = _comment;
+            _speficicComments.Add(_speficicComment);
         }    
 
-        return _actualComments;
+        return _speficicComments;
     }
 
     public static async Task ChangeStatusAsync(Case currentCase)
     {
-        var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == currentCase.Id);
+        var _currentCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == currentCase.Id);
 
-        _dbCaseEntity!.Status = currentCase.Status;
+        _currentCaseEntity!.Status = currentCase.Status;
 
-        _context.Update(_dbCaseEntity);
+        _context.Update(_currentCaseEntity);
         await _context.SaveChangesAsync();
     }
 
     public static async Task SaveCommentToDbAsync(Comment comment, int caseId)
     {
-        CommentEntity commentEntity = comment;
-        commentEntity.CaseId = caseId;
-        _context.Add(commentEntity);
+        //Casting from Comment to CommentEntity:
+        CommentEntity _commentEntity = comment;
+        _commentEntity.CaseId = caseId;
+        _context.Add(_commentEntity);
         await _context.SaveChangesAsync();
     }
 
     public static async Task RemoveCaseAsync(Case clickedCase)
     {
-        var _dbCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == clickedCase.Id);
+        var _clickedCaseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.Id == clickedCase.Id);
 
-        if (_dbCaseEntity != null)
+        //Becuase I have trouble making the list of cases, in the frontend, update correctly when removing a case,
+        //I have to check if the _clickedCaseEntity is present:
+        if (_clickedCaseEntity != null)
         {
             var _allComments = new List<CommentEntity>();
 
+            //Lists all the comments in the db:
             foreach (var _comment in await _context.Comments.ToListAsync())
             {
                 _allComments.Add(_comment);
             };
 
-            foreach (var _associatedComment in _allComments.Where(x => x.CaseId == _dbCaseEntity.Id))
+            //Remove all the associated comments to the clicked case, one by one:
+            foreach (var _associatedComment in _allComments.Where(x => x.CaseId == _clickedCaseEntity.Id))
             {
                 _context.Remove(_associatedComment);
             }
 
-            _context.Remove(_dbCaseEntity);
+            //Removes the clicked case:
+            _context.Remove(_clickedCaseEntity);
             await _context.SaveChangesAsync();
         }
     }
