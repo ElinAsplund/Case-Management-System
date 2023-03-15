@@ -14,7 +14,7 @@ internal class DatabaseService
 {
     public static DatabaseContext _context = new DatabaseContext();
 
-    public static async Task SaveToDbAsync(Case newCase)
+    public static async Task<bool> SaveToDbAsync(Case newCase)
     {
         CustomerEntity _customerEntity = newCase;
         CaseEntity _caseEntity = newCase;
@@ -36,13 +36,19 @@ internal class DatabaseService
             };
         }
 
-        //If no customer is found in the db with the entered email, adds the new customer:
+        //If no customer is found in the db with the entered email, adds a new customer:
         if(_customerEmailFound.IsNullOrEmpty()) 
         {
-            _context.Add(_customerEntity);
-            _caseEntity.CustomerId = _customerEntity.Id;
-            _context.Add(_caseEntity);
-            await _context.SaveChangesAsync();            
+            //Checks that the FirstName and LastName aren't null:
+            if(_customerEntity.FirstName != "" || _customerEntity.LastName != "")
+            {
+                _context.Add(_customerEntity);
+                _caseEntity.CustomerId = _customerEntity.Id;
+                _context.Add(_caseEntity);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
         }
         else
         {
@@ -50,7 +56,11 @@ internal class DatabaseService
             _caseEntity.CustomerId = _foundCustomer.Id;
             _context.Add(_caseEntity);
             await _context.SaveChangesAsync();
+
+            return true;
         }
+
+        return false;
     }
 
     public static async Task<ObservableCollection<Case>> GetAllFromDbAsync()

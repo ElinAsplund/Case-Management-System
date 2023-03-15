@@ -37,19 +37,24 @@ public partial class AddACaseViewModel : ObservableObject
     {
         //Checking that the entered case is not empty:
         if(EnteredDescription!="" && Email!="") 
-        { 
-            var newCase = new Case
+        {
+            //To avoid the WPF from crashing I check the PhoneNumber's length:
+            if (PhoneNumber.Length <= 13)
             {
-                Description = EnteredDescription,
-                CustomerFirstName = FirstName,
-                CustomerLastName = LastName,
-                CustomerEmail = Email,
-                CustomerPhoneNumber = PhoneNumber
-            };
+                var newCase = new Case
+                {
+                    Description = EnteredDescription,
+                    CustomerFirstName = FirstName,
+                    CustomerLastName = LastName,
+                    CustomerEmail = Email,
+                    CustomerPhoneNumber = PhoneNumber
+                };
 
-            await DatabaseService.SaveToDbAsync(newCase);
+                bool _haveSucceeded = await DatabaseService.SaveToDbAsync(newCase);
 
-            ClearForm();
+                if (_haveSucceeded)
+                    ClearForm();
+            }
         }
     }
 }

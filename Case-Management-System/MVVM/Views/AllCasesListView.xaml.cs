@@ -34,8 +34,8 @@ namespace Case_Management_System.MVVM.Views
             var button = sender as Button;
             var _clickedCase = button!.DataContext as Case;
 
-            if (MessageBox.Show("Är du säker på att du vill ta bort ärendet?",
-                "Ta bort ärende",
+            if (MessageBox.Show("Är du säker på att du vill ta bort ärendet?\n\n(Ärendet kommer försvinna från listna när sidan uppdateras.)",
+                "Ta bort ett ärende",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {

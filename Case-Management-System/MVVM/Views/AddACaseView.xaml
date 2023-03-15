@@ -57,7 +57,7 @@
                     FontWeight="Bold"
                     Margin="0 0 0 2"
                     Foreground="#554c4b"
-                    Text="Telefonnummer:"/>
+                    Text="Telefonnummer (XXX-XXX XX XX):"/>
                 <TextBox 
                     BorderThickness="0"
                     Padding="5" 
